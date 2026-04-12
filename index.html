@@ -65,6 +65,14 @@
 
         .heart { position: fixed; top: -20px; color: var(--neon-red); z-index: 5; animation: fall linear forwards; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+
+        /* Estilo extra para o player */
+        .music-wrapper {
+            margin-top: 10px;
+            border: 1px solid var(--neon-red);
+            border-radius: 4px;
+            overflow: hidden;
+        }
     </style>
 </head>
 <body>
@@ -110,6 +118,21 @@
         </section>
 
         <section class="card">
+            <span class="card-label">> TRILHA_SONORA</span>
+            <div class="music-wrapper">
+                <iframe 
+                    width="100%" 
+                    height="80" 
+                    src="https://www.youtube.com/embed/RJszNLT2QAA?si=pkmAZA1i0H2JMthx&color=white&controls=1" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </section>
+
+        <section class="card">
             <span class="card-label">> PARA MINHA AMADA</span>
             <p style="font-size: 1rem; line-height: 1.6; text-align: center; margin: 0; font-family: 'JetBrains Mono', monospace;">
                 Maria, às vezes eu paro e fico pensando na sorte que tive de te encontrar. Esse tempo que o site marca não é apenas um número, é a soma de todos os sorrisos que você me deu.
@@ -136,7 +159,7 @@
             document.getElementById('main-content').style.display = 'block';
         }, 2800);
 
-        // Contador
+        // Contador (Ajustado para 15/11/2025 conforme seu código)
         const dataInicio = new Date(2025, 10, 15, 20, 30); 
         function atualizar() {
             const agora = new Date();
