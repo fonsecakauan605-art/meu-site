@@ -17,164 +17,83 @@
             color: #fff;
             font-family: 'JetBrains Mono', monospace;
             margin: 0;
-            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
 
-        /* TELA DE ENTRADA */
+        /* TELA INICIAL COM BOTÃO */
         #loader {
+            text-align: center;
+            z-index: 10000;
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
             background: #000;
-            z-index: 9999;
+            width: 100%;
+            height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: center;
         }
 
         #start-btn {
             background: transparent;
             border: 2px solid var(--neon-red);
             color: var(--neon-red);
-            padding: 20px 50px;
-            cursor: pointer;
+            padding: 20px 40px;
             font-family: 'Orbitron', sans-serif;
             font-size: 1.2rem;
-            text-transform: uppercase;
+            cursor: pointer;
             box-shadow: 0 0 15px var(--neon-red);
-            transition: 0.3s;
+            text-transform: uppercase;
         }
 
-        #start-btn:hover {
-            background: var(--neon-red);
-            color: #fff;
-            box-shadow: 0 0 40px var(--neon-red);
-        }
-
-        /* CONTEÚDO PRINCIPAL */
+        /* CONTEÚDO PRINCIPAL (FOTO E TIMER) */
         #main-content {
             display: none;
-            padding-bottom: 50px;
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+            text-align: center;
         }
 
         .status-bar {
-            display: flex; justify-content: space-around;
-            padding: 10px; border-bottom: 1px solid var(--neon-red);
-            font-size: 0.7rem; color: var(--neon-red); text-transform: uppercase;
+            border-bottom: 1px solid var(--neon-red);
+            padding: 10px;
+            font-size: 0.8rem;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
         }
-
-        header { text-align: center; padding: 40px 20px; }
-        header h1 { font-family: 'Orbitron', sans-serif; font-size: 1.8rem; text-shadow: 0 0 15px var(--neon-red); }
 
         .card {
-            margin: 20px auto; max-width: 400px;
-            border: 1px solid var(--neon-red); background: rgba(255, 77, 109, 0.05);
-            padding: 20px; position: relative;
+            border: 1px solid var(--neon-red);
+            background: rgba(255, 77, 109, 0.05);
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative;
         }
 
-        .card-label { position: absolute; top: -10px; left: 15px; background: var(--bg-dark); padding: 0 10px; color: var(--neon-red); font-size: 0.8rem; font-weight: bold; }
-
-        .photo-container { width: 180px; height: 180px; margin: 0 auto 20px; border: 2px solid var(--neon-red); overflow: hidden; }
-        .photo-container img { width: 100%; height: 100%; object-fit: cover; }
-
-        .timer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; text-align: center; }
-        .timer-box { border: 1px solid rgba(255, 77, 109, 0.3); padding: 10px 5px; }
-        .timer-val { font-size: 1.2rem; color: var(--neon-green); display: block; }
-
-        .heart { position: fixed; top: -20px; color: var(--neon-red); z-index: 5; animation: fall linear forwards; }
-        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
-    </style>
-</head>
-<body>
-
-    <div id="loader">
-        <p style="color: var(--neon-green); margin-bottom: 20px;">> SISTEMA PRONTO PARA ACESSO...</p>
-        <button id="start-btn" onclick="entrar()">[ ACESSAR CONEXÃO ]</button>
-    </div>
-
-    <div id="main-content">
-        <div class="status-bar">
-            <span>STATUS: <span style="color: var(--neon-green)">ONLINE</span></span>
-            <span>USER: KAUAN & MARIA</span>
-        </div>
-
-        <header>
-            <h1>KAUAN & MARIA</h1>
-        </header>
-
-        <section class="card">
-            <span class="card-label">> IDENTIFICAÇÃO</span>
-            <div class="photo-container">
-                <img src="amor.jpeg.jpeg" alt="FOTO">
-            </div>
-            <div style="text-align: center;">
-                <p style="font-size: 1.5rem; font-weight: bold; margin: 5px 0;">MARIA</p>
-                <p style="font-size: 0.7rem; color: var(--neon-red);">RANK: NAMORADA PERFEITA</p>
-            </div>
-        </section>
-
-        <section class="card">
-            <span class="card-label">> TEMPO_DE_UNIÃO</span>
-            <div class="timer-grid">
-                <div class="timer-box"><span class="timer-val" id="d">00</span><span style="font-size:0.5rem">DIAS</span></div>
-                <div class="timer-box"><span class="timer-val" id="h">00</span><span style="font-size:0.5rem">HORAS</span></div>
-                <div class="timer-box"><span class="timer-val" id="m">00</span><span style="font-size:0.5rem">MIN</span></div>
-                <div class="timer-box"><span class="timer-val" id="s">00</span><span style="font-size:0.5rem">SEG</span></div>
-            </div>
-        </section>
-
-        <section class="card">
-            <span class="card-label">> MENSAGEM_FINAL</span>
-            <p style="text-align: center; line-height: 1.6; font-size: 0.9rem;">
-                "Foi assim quando eu te vi a primeira vez..." <br><br>
-                <span style="color: var(--neon-red); font-weight: bold;">TE AMO MUITO!</span>
-            </p>
-        </section>
-
-        <audio id="musica" loop>
-            <source src="https://www.myinstants.com/media/sounds/sotam-foi-assim-cortado.mp3" type="audio/mpeg">
-        </audio>
-    </div>
-
-    <script>
-        function entrar() {
-            document.getElementById('loader').style.display = 'none';
-            document.getElementById('main-content').style.display = 'block';
-
-            // Toca a música nos 49s e sem anúncios
-            const audio = document.getElementById('musica');
-            audio.currentTime = 49; 
-            audio.play();
-
-            setInterval(createHeart, 600);
+        .card-label {
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            background: var(--bg-dark);
+            padding: 0 10px;
+            color: var(--neon-red);
+            font-size: 0.7rem;
         }
 
-        // Contador ajustado (15/11/2025)
-        const dataInicio = new Date(2025, 10, 15, 20, 30); 
-        function atualizar() {
-            const agora = new Date();
-            const diff = agora - dataInicio;
-            if(diff > 0) {
-                document.getElementById('d').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
-                document.getElementById('h').innerText = Math.floor((diff / (1000 * 60 * 60)) % 24).toString().padStart(2, '0');
-                document.getElementById('m').innerText = Math.floor((diff / (1000 * 60)) % 60).toString().padStart(2, '0');
-                document.getElementById('s').innerText = Math.floor((diff / 1000) % 60).toString().padStart(2, '0');
-            }
+        .photo-container {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 15px;
+            border: 2px solid var(--neon-red);
+            overflow: hidden;
         }
-        setInterval(atualizar, 1000);
-        atualizar();
 
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.innerHTML = '❤️';
-            heart.style.left = Math.random() * 100 + 'vw';
-            const dur = Math.random() * 3 + 4;
-            heart.style.animationDuration = dur + 's';
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), dur * 1000);
-        }
-    </script>
-</body>
-</html>
+        .photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
