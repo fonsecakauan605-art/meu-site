@@ -33,6 +33,28 @@
             color: var(--neon-green);
         }
 
+        /* BOTÃO DE ENTRADA */
+        #start-btn {
+            display: none;
+            margin-top: 25px;
+            background: transparent;
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
+            padding: 12px 25px;
+            cursor: pointer;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: bold;
+            transition: 0.3s;
+            text-transform: uppercase;
+            box-shadow: 0 0 10px rgba(57, 255, 20, 0.2);
+        }
+
+        #start-btn:hover {
+            background: var(--neon-green);
+            color: #000;
+            box-shadow: 0 0 20px var(--neon-green);
+        }
+
         /* CONTEÚDO PRINCIPAL */
         #main-content {
             display: none;
@@ -66,23 +88,24 @@
         .heart { position: fixed; top: -20px; color: var(--neon-red); z-index: 5; animation: fall linear forwards; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
 
-        /* Estilo extra para o player */
         .music-wrapper {
             margin-top: 10px;
             border: 1px solid var(--neon-red);
             border-radius: 4px;
             overflow: hidden;
+            background: #000;
         }
     </style>
 </head>
 <body>
 
     <div id="loader">
-        <div id="boot-text" style="width: 320px;">
+        <div id="boot-text" style="width: 320px; text-align: center;">
             <p id="l1">> Initializing Java_Romance...</p>
             <p id="l2" style="display:none">> Searching: MARIA...</p>
             <p id="l3" style="display:none">> Searching: KAUAN...</p>
             <p id="l4" style="display:none">> Status: Conexão Perfeita Detectada.</p>
+            <button id="start-btn">[ ACESSAR SISTEMA ]</button>
         </div>
     </div>
 
@@ -121,13 +144,12 @@
             <span class="card-label">> TRILHA_SONORA</span>
             <div class="music-wrapper">
                 <iframe 
+                    id="youtube-player"
                     width="100%" 
                     height="80" 
-                    src="https://www.youtube.com/embed/RJszNLT2QAA?si=pkmAZA1i0H2JMthx&color=white&controls=1" 
-                    title="YouTube video player" 
+                    src="" 
                     frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    allowfullscreen>
+                    allow="autoplay; encrypted-media">
                 </iframe>
             </div>
         </section>
@@ -149,30 +171,47 @@
     </div>
 
     <script>
+        // --- CONFIGURAÇÃO DA MÚSICA ---
+        const segundoInicio = 49; // Definido para 49 segundos
+        const linkMusica = "https://www.youtube.com/embed/RJszNLT2QAA?si=pkmAZA1i0H2JMthx";
+
         // Animação do Boot
         setTimeout(() => { document.getElementById('l2').style.display = 'block'; }, 600);
         setTimeout(() => { document.getElementById('l3').style.display = 'block'; }, 1200);
         setTimeout(() => { document.getElementById('l4').style.display = 'block'; }, 1800);
-        
-        setTimeout(() => {
+        setTimeout(() => { 
+            document.getElementById('start-btn').style.display = 'inline-block'; 
+        }, 2500);
+
+        // Evento de Clique para entrar e tocar música
+        document.getElementById('start-btn').addEventListener('click', () => {
             document.getElementById('loader').style.display = 'none';
             document.getElementById('main-content').style.display = 'block';
-        }, 2800);
+            
+            // Inicia a música nos 49 segundos com autoplay
+            const player = document.getElementById('youtube-player');
+            player.src = linkMusica + "&autoplay=1&start=" + segundoInicio;
+            
+            // Inicia a chuva de corações
+            setInterval(createHeart, 600);
+        });
 
-        // Contador (Ajustado para 15/11/2025 conforme seu código)
+        // Contador (15/11/2025)
         const dataInicio = new Date(2025, 10, 15, 20, 30); 
         function atualizar() {
             const agora = new Date();
             const diff = agora - dataInicio;
-            document.getElementById('d').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
-            document.getElementById('h').innerText = Math.floor((diff / (1000 * 60 * 60)) % 24).toString().padStart(2, '0');
-            document.getElementById('m').innerText = Math.floor((diff / (1000 * 60)) % 60).toString().padStart(2, '0');
-            document.getElementById('s').innerText = Math.floor((diff / 1000) % 60).toString().padStart(2, '0');
+            if(diff > 0) {
+                document.getElementById('d').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+                document.getElementById('h').innerText = Math.floor((diff / (1000 * 60 * 60)) % 24).toString().padStart(2, '0');
+                document.getElementById('m').innerText = Math.floor((diff / (1000 * 60)) % 60).toString().padStart(2, '0');
+                document.getElementById('s').innerText = Math.floor((diff / 1000) % 60).toString().padStart(2, '0');
+            }
         }
         setInterval(atualizar, 1000);
         atualizar();
 
-        // Corações
+        // Função dos Corações
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart');
@@ -183,7 +222,6 @@
             document.body.appendChild(heart);
             setTimeout(() => heart.remove(), dur * 1000);
         }
-        setInterval(createHeart, 600);
     </script>
 </body>
 </html>
