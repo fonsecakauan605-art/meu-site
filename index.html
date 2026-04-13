@@ -17,10 +17,10 @@
             color: #fff;
             font-family: 'JetBrains Mono', monospace;
             margin: 0;
-            overflow-x: hidden;
+            overflow: hidden;
         }
 
-        /* TELA DE LOADING */
+        /* TELA DE ENTRADA */
         #loader {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -30,35 +30,34 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            color: var(--neon-green);
+            text-align: center;
         }
 
-        /* BOTÃO DE ACESSO */
         #start-btn {
-            display: none;
-            margin-top: 25px;
             background: transparent;
-            border: 2px solid var(--neon-green);
-            color: var(--neon-green);
-            padding: 15px 30px;
+            border: 3px solid var(--neon-red);
+            color: var(--neon-red);
+            padding: 20px 50px;
             cursor: pointer;
-            font-family: 'JetBrains Mono', monospace;
-            font-weight: bold;
-            font-size: 1rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
             text-transform: uppercase;
-            box-shadow: 0 0 15px rgba(57, 255, 20, 0.3);
+            box-shadow: 0 0 20px var(--neon-red);
             transition: 0.3s;
+            margin-top: 20px;
         }
 
         #start-btn:hover {
-            background: var(--neon-green);
-            color: #000;
-            box-shadow: 0 0 25px var(--neon-green);
+            background: var(--neon-red);
+            color: #fff;
+            box-shadow: 0 0 50px var(--neon-red);
         }
 
+        /* CONTEÚDO PRINCIPAL */
         #main-content {
             display: none;
-            padding-bottom: 50px;
+            height: 100vh;
+            overflow-y: auto;
         }
 
         .status-bar {
@@ -81,4 +80,105 @@
         .photo-container { width: 180px; height: 180px; margin: 0 auto 20px; border: 2px solid var(--neon-red); overflow: hidden; }
         .photo-container img { width: 100%; height: 100%; object-fit: cover; }
 
-        .timer-grid { display: grid; grid-template-columns: repeat(4,
+        .timer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; text-align: center; }
+        .timer-box { border: 1px solid rgba(255, 77, 109, 0.3); padding: 10px 5px; }
+        .timer-val { font-size: 1.2rem; color: var(--neon-red); display: block; }
+
+        .heart { position: fixed; top: -20px; color: var(--neon-red); z-index: 5; animation: fall linear forwards; }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <div id="loader">
+        <p style="color: var(--neon-green); font-family: 'JetBrains Mono';">> SYSTEM READY...</p>
+        <button id="start-btn" onclick="entrar()">ACESSAR SISTEMA</button>
+    </div>
+
+    <div id="main-content">
+        <div class="status-bar">
+            <span>STATUS: <span style="color: var(--neon-green)">ONLINE</span></span>
+            <span>USER: KAUAN & MARIA</span>
+        </div>
+
+        <header>
+            <h1>KAUAN & MARIA</h1>
+        </header>
+
+        <section class="card">
+            <span class="card-label">> IDENTIFICAÇÃO</span>
+            <div class="photo-container">
+                <img src="amor.jpeg.jpeg" alt="FOTO">
+            </div>
+            <div style="text-align: center;">
+                <p style="font-size: 1.5rem; font-weight: bold;">MARIA</p>
+                <p style="font-size: 0.7rem; color: var(--neon-red);">RANK: NAMORADA PERFEITA</p>
+            </div>
+        </section>
+
+        <section class="card">
+            <span class="card-label">> TEMPO_DE_UNIÃO</span>
+            <div class="timer-grid">
+                <div class="timer-box"><span class="timer-val" id="d">00</span><span style="font-size:0.5rem">DIAS</span></div>
+                <div class="timer-box"><span class="timer-val" id="h">00</span><span style="font-size:0.5rem">HORAS</span></div>
+                <div class="timer-box"><span class="timer-val" id="m">00</span><span style="font-size:0.5rem">MIN</span></div>
+                <div class="timer-box"><span class="timer-val" id="s">00</span><span style="font-size:0.5rem">SEG</span></div>
+            </div>
+        </section>
+
+        <section class="card">
+            <span class="card-label">> MENSAGEM</span>
+            <p style="text-align: center; line-height: 1.6;">
+                "Foi assim quando eu te vi a primeira vez..." <br>
+                <span style="color: var(--neon-red); font-weight: bold;">Te amo muito, Maria! ❤️</span>
+            </p>
+        </section>
+
+        <div id="music-box" style="display:none;"></div>
+    </div>
+
+    <script>
+        function entrar() {
+            // Esconde loader e mostra o site
+            document.getElementById('loader').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+            document.body.style.overflow = 'auto';
+
+            // CONFIGURAÇÃO DA MÚSICA DO SOTAM
+            // ID do vídeo "vUI2PT3rKts" correspondente a Sotam - Foi Assim
+            const videoID = "vUI2PT3rKts"; 
+            const musicBox = document.getElementById('music-box');
+            musicBox.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoID}?autoplay=1&start=49" allow="autoplay"></iframe>`;
+
+            // Ativa corações
+            setInterval(createHeart, 600);
+        }
+
+        // Contador (Ajustado para 15/11/2025)
+        const dataInicio = new Date(2025, 10, 15, 20, 30); 
+        function atualizar() {
+            const agora = new Date();
+            const diff = agora - dataInicio;
+            if(diff > 0) {
+                document.getElementById('d').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+                document.getElementById('h').innerText = Math.floor((diff / (1000 * 60 * 60)) % 24).toString().padStart(2, '0');
+                document.getElementById('m').innerText = Math.floor((diff / (1000 * 60)) % 60).toString().padStart(2, '0');
+                document.getElementById('s').innerText = Math.floor((diff / 1000) % 60).toString().padStart(2, '0');
+            }
+        }
+        setInterval(atualizar, 1000);
+        atualizar();
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            const dur = Math.random() * 3 + 4;
+            heart.style.animationDuration = dur + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), dur * 1000);
+        }
+    </script>
+</body>
+</html>
