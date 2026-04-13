@@ -33,29 +33,29 @@
             color: var(--neon-green);
         }
 
-        /* BOTÃO DE ENTRADA */
+        /* BOTÃO DE ACESSO */
         #start-btn {
             display: none;
             margin-top: 25px;
             background: transparent;
-            border: 1px solid var(--neon-green);
+            border: 2px solid var(--neon-green);
             color: var(--neon-green);
-            padding: 12px 25px;
+            padding: 15px 30px;
             cursor: pointer;
             font-family: 'JetBrains Mono', monospace;
             font-weight: bold;
-            transition: 0.3s;
+            font-size: 1rem;
             text-transform: uppercase;
-            box-shadow: 0 0 10px rgba(57, 255, 20, 0.2);
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.3);
+            transition: 0.3s;
         }
 
         #start-btn:hover {
             background: var(--neon-green);
             color: #000;
-            box-shadow: 0 0 20px var(--neon-green);
+            box-shadow: 0 0 25px var(--neon-green);
         }
 
-        /* CONTEÚDO PRINCIPAL */
         #main-content {
             display: none;
             padding-bottom: 50px;
@@ -81,147 +81,4 @@
         .photo-container { width: 180px; height: 180px; margin: 0 auto 20px; border: 2px solid var(--neon-red); overflow: hidden; }
         .photo-container img { width: 100%; height: 100%; object-fit: cover; }
 
-        .timer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; text-align: center; }
-        .timer-box { border: 1px solid rgba(255, 77, 109, 0.3); padding: 10px 5px; }
-        .timer-val { font-size: 1.2rem; color: var(--neon-red); display: block; }
-
-        .heart { position: fixed; top: -20px; color: var(--neon-red); z-index: 5; animation: fall linear forwards; }
-        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
-
-        .music-wrapper {
-            margin-top: 10px;
-            border: 1px solid var(--neon-red);
-            border-radius: 4px;
-            overflow: hidden;
-            background: #000;
-        }
-    </style>
-</head>
-<body>
-
-    <div id="loader">
-        <div id="boot-text" style="width: 320px; text-align: center;">
-            <p id="l1">> Initializing Java_Romance...</p>
-            <p id="l2" style="display:none">> Searching: MARIA...</p>
-            <p id="l3" style="display:none">> Searching: KAUAN...</p>
-            <p id="l4" style="display:none">> Status: Conexão Perfeita Detectada.</p>
-            <button id="start-btn">[ ACESSAR SISTEMA ]</button>
-        </div>
-    </div>
-
-    <div id="main-content">
-        <div class="status-bar">
-            <span>STATUS: <span style="color: var(--neon-green)">ONLINE</span></span>
-            <span>USER: KAUAN & MARIA</span>
-        </div>
-
-        <header>
-            <h1>KAUAN & MARIA</h1>
-        </header>
-
-        <section class="card">
-            <span class="card-label">> IDENTIFICAÇÃO</span>
-            <div class="photo-container">
-                <img src="amor.jpeg.jpeg" alt="FOTO">
-            </div>
-            <div style="text-align: center;">
-                <p style="font-size: 1.5rem; font-weight: bold;">MARIA</p>
-                <p style="font-size: 0.7rem; color: var(--neon-red);">RANK: NAMORADA PERFEITA</p>
-            </div>
-        </section>
-
-        <section class="card">
-            <span class="card-label">> TEMPO_DE_UNIÃO</span>
-            <div class="timer-grid">
-                <div class="timer-box"><span class="timer-val" id="d">00</span><span style="font-size:0.5rem">DIAS</span></div>
-                <div class="timer-box"><span class="timer-val" id="h">00</span><span style="font-size:0.5rem">HORAS</span></div>
-                <div class="timer-box"><span class="timer-val" id="m">00</span><span style="font-size:0.5rem">MIN</span></div>
-                <div class="timer-box"><span class="timer-val" id="s">00</span><span style="font-size:0.5rem">SEG</span></div>
-            </div>
-        </section>
-
-        <section class="card">
-            <span class="card-label">> TRILHA_SONORA</span>
-            <div class="music-wrapper">
-                <iframe 
-                    id="youtube-player"
-                    width="100%" 
-                    height="80" 
-                    src="" 
-                    frameborder="0" 
-                    allow="autoplay; encrypted-media">
-                </iframe>
-            </div>
-        </section>
-
-        <section class="card">
-            <span class="card-label">> PARA MINHA AMADA</span>
-            <p style="font-size: 1rem; line-height: 1.6; text-align: center; margin: 0; font-family: 'JetBrains Mono', monospace;">
-                Maria, às vezes eu paro e fico pensando na sorte que tive de te encontrar. Esse tempo que o site marca não é apenas um número, é a soma de todos os sorrisos que você me deu.
-                <br><br>
-                Quero que saibas que você é o meu porto seguro. Obrigado por ser essa pessoa incrível e por me deixar fazer parte da sua vida. 
-                <br><br>
-                <span style="color: var(--neon-red); font-weight: bold;">Eu te amo muito, Kauan.</span>
-            </p>
-        </section>
-
-        <p style="text-align: center; color: var(--neon-green); font-size: 0.8rem; margin-top: 20px;">
-            > Sistema rodando perfeitamente. ❤️
-        </p>
-    </div>
-
-    <script>
-        // --- CONFIGURAÇÃO DA MÚSICA ---
-        const segundoInicio = 49; // Definido para 49 segundos
-        const linkMusica = "https://www.youtube.com/embed/RJszNLT2QAA?si=pkmAZA1i0H2JMthx";
-
-        // Animação do Boot
-        setTimeout(() => { document.getElementById('l2').style.display = 'block'; }, 600);
-        setTimeout(() => { document.getElementById('l3').style.display = 'block'; }, 1200);
-        setTimeout(() => { document.getElementById('l4').style.display = 'block'; }, 1800);
-        setTimeout(() => { 
-            document.getElementById('start-btn').style.display = 'inline-block'; 
-        }, 2500);
-
-        // Evento de Clique para entrar e tocar música
-        document.getElementById('start-btn').addEventListener('click', () => {
-            document.getElementById('loader').style.display = 'none';
-            document.getElementById('main-content').style.display = 'block';
-            
-            // Inicia a música nos 49 segundos com autoplay
-            const player = document.getElementById('youtube-player');
-            player.src = linkMusica + "&autoplay=1&start=" + segundoInicio;
-            
-            // Inicia a chuva de corações
-            setInterval(createHeart, 600);
-        });
-
-        // Contador (15/11/2025)
-        const dataInicio = new Date(2025, 10, 15, 20, 30); 
-        function atualizar() {
-            const agora = new Date();
-            const diff = agora - dataInicio;
-            if(diff > 0) {
-                document.getElementById('d').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
-                document.getElementById('h').innerText = Math.floor((diff / (1000 * 60 * 60)) % 24).toString().padStart(2, '0');
-                document.getElementById('m').innerText = Math.floor((diff / (1000 * 60)) % 60).toString().padStart(2, '0');
-                document.getElementById('s').innerText = Math.floor((diff / 1000) % 60).toString().padStart(2, '0');
-            }
-        }
-        setInterval(atualizar, 1000);
-        atualizar();
-
-        // Função dos Corações
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.innerHTML = '❤️';
-            heart.style.left = Math.random() * 100 + 'vw';
-            const dur = Math.random() * 3 + 4;
-            heart.style.animationDuration = dur + 's';
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), dur * 1000);
-        }
-    </script>
-</body>
-</html>
+        .timer-grid { display: grid; grid-template-columns: repeat(4,
