@@ -23,14 +23,12 @@
             min-height: 100vh;
         }
 
-        /* TELA INICIAL COM BOTÃO */
+        /* TELA DE ENTRADA */
         #loader {
-            text-align: center;
-            z-index: 10000;
             position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: #000;
-            width: 100%;
-            height: 100%;
+            z-index: 10000;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -49,22 +47,13 @@
             text-transform: uppercase;
         }
 
-        /* CONTEÚDO PRINCIPAL (FOTO E TIMER) */
+        /* SITE PRINCIPAL */
         #main-content {
             display: none;
             width: 100%;
             max-width: 500px;
             padding: 20px;
             text-align: center;
-        }
-
-        .status-bar {
-            border-bottom: 1px solid var(--neon-red);
-            padding: 10px;
-            font-size: 0.8rem;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
         }
 
         .card {
@@ -77,8 +66,7 @@
 
         .card-label {
             position: absolute;
-            top: -10px;
-            left: 10px;
+            top: -10px; left: 10px;
             background: var(--bg-dark);
             padding: 0 10px;
             color: var(--neon-red);
@@ -86,14 +74,89 @@
         }
 
         .photo-container {
-            width: 200px;
-            height: 200px;
+            width: 200px; height: 200px;
             margin: 0 auto 15px;
             border: 2px solid var(--neon-red);
             overflow: hidden;
         }
 
         .photo-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover
+            width: 100%; height: 100%;
+            object-fit: cover;
+        }
+
+        .timer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .timer-box {
+            border: 1px solid rgba(255, 77, 109, 0.3);
+            padding: 10px;
+        }
+
+        .timer-val {
+            color: var(--neon-green);
+            font-size: 1.2rem;
+            display: block;
+        }
+
+        .heart {
+            position: fixed;
+            top: -20px;
+            color: var(--neon-red);
+            z-index: 5;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loader">
+        <p style="color: var(--neon-green); margin-bottom: 20px;">> AQUECENDO MOTORES...</p>
+        <button id="start-btn" onclick="entrar()">[ LIBERAR ACESSO ]</button>
+    </div>
+
+    <div id="main-content">
+        <header style="margin-bottom: 30px;">
+            <h1 style="font-family: 'Orbitron'; color: var(--neon-red); text-shadow: 0 0 10px var(--neon-red);">KAUAN & MARIA</h1>
+        </header>
+
+        <section class="card">
+            <span class="card-label">> IDENTIFICAÇÃO</span>
+            <div class="photo-container">
+                <img src="amor.jpeg.jpeg" alt="FOTO">
+            </div>
+            <p style="font-size: 1.5rem; font-weight: bold; margin: 5px 0;">MARIA</p>
+            <p style="color: var(--neon-red); font-size: 0.7rem;">RANK: NAMORADA PERFEITA</p>
+        </section>
+
+        <section class="card">
+            <span class="card-label">> TEMPO_CONECTADOS</span>
+            <div class="timer-grid">
+                <div class="timer-box"><span class="timer-val" id="d">00</span><span style="font-size:0.5rem">DIAS</span></div>
+                <div class="timer-box"><span class="timer-val" id="h">00</span><span style="font-size:0.5rem">HORAS</span></div>
+                <div class="timer-box"><span class="timer-val" id="m">00</span><span style="font-size:0.5rem">MIN</span></div>
+                <div class="timer-box"><span class="timer-val" id="s">00</span><span style="font-size:0.5rem">SEG</span></div>
+            </div>
+        </section>
+
+        <section class="card">
+            <span class="card-label">> MENSAGEM</span>
+            <p style="font-size: 0.9rem;">"Foi assim quando eu te vi a primeira vez..."</p>
+            <p style="color: var(--neon-red); font-weight: bold;">TE AMO MUITO!</p>
+        </section>
+
+        <audio id="musica" loop>
+            <source src="https://files.catbox.moe/p94wgu.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <script>
+        function entrar() {
+            document
