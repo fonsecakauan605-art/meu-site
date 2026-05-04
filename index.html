@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KAUAN & MARIA ❤️</title>
-    <!-- NOVAS FONTES: SYNE E INTER -->
     <link href="https://googleapis.com" rel="stylesheet">
     <style>
         :root {
@@ -20,9 +19,7 @@
             color: #fff;
             font-family: var(--font-corpo);
             margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            padding-bottom: 80px; /* Espaço para o menu inferior */
             min-height: 100vh;
             overflow-x: hidden;
         }
@@ -48,169 +45,190 @@
             font-size: 1.1rem;
             cursor: pointer;
             box-shadow: 0 10px 30px rgba(255, 77, 109, 0.4);
-            border-radius: 50px; /* Botão mais moderno e arredondado */
+            border-radius: 50px;
             text-transform: uppercase;
             transition: 0.4s;
-            letter-spacing: 1px;
         }
 
-        #start-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 45px var(--neon-red);
+        /* NAVEGAÇÃO POR ABAS */
+        nav {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 10px 20px;
+            border-radius: 30px;
+            display: none; /* Só aparece após o start */
+            z-index: 1000;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 80%;
+            max-width: 400px;
+            justify-content: space-around;
         }
 
-        /* CONTEÚDO PRINCIPAL */
-        #main-content {
+        nav button {
+            background: none;
+            border: none;
+            color: #aaa;
+            font-family: var(--font-destaque);
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        nav button.active {
+            color: var(--neon-red);
+            transform: scale(1.1);
+        }
+
+        /* SEÇÕES */
+        .tab-content {
             display: none;
-            width: 100%;
-            max-width: 500px;
             padding: 20px;
+            animation: fadeIn 0.5s ease;
+            max-width: 500px;
+            margin: 0 auto;
             text-align: center;
         }
 
-        .status-bar {
-            padding: 10px;
-            font-size: 0.75rem;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            color: var(--neon-red);
-            font-weight: bold;
-            letter-spacing: 2px;
+        .tab-content.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
+        /* ESTILOS DOS CARDS (REUTILIZADOS) */
         .card {
             border: 2px solid rgba(255, 77, 109, 0.2);
             background: rgba(255, 255, 255, 0.03);
-            border-radius: 20px; /* Bordas arredondadas para um visual premium */
+            border-radius: 20px;
             padding: 30px 20px;
             margin-bottom: 25px;
             position: relative;
-            backdrop-filter: blur(10px);
-        }
-
-        .card-label {
-            position: absolute;
-            top: -12px; left: 50%;
-            transform: translateX(-50%);
-            background: var(--neon-red);
-            color: #fff;
-            padding: 4px 15px;
-            font-size: 0.65rem;
-            font-weight: 800;
-            font-family: var(--font-destaque);
-            border-radius: 10px;
         }
 
         .photo-container {
-            width: 220px; height: 220px;
+            width: 200px; height: 200px;
             margin: 0 auto 15px;
-            border-radius: 50%; /* Foto redonda combina mais com o estilo novo */
+            border-radius: 50%;
             border: 4px solid var(--neon-red);
             overflow: hidden;
             box-shadow: 0 0 30px rgba(255, 77, 109, 0.3);
         }
 
-        .photo-container img {
-            width: 100%; height: 100%;
-            object-fit: cover;
-        }
+        .photo-container img { width: 100%; height: 100%; object-fit: cover; }
 
-        .nome-maria {
-            font-family: var(--font-destaque);
-            font-size: 2.2rem;
-            margin: 10px 0 5px;
-            text-transform: uppercase;
-        }
+        .timer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+        .timer-box { background: rgba(255, 255, 255, 0.05); padding: 15px 5px; border-radius: 12px; }
+        .timer-val { font-family: var(--font-destaque); color: var(--neon-green); font-size: 1.2rem; display: block; }
 
-        .timer-grid {
+        /* GALERIA */
+        .galeria-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: 1fr 1fr;
             gap: 15px;
         }
-
-        .timer-box {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 15px 5px;
-            border-radius: 12px;
+        .galeria-item {
+            width: 100%;
+            height: 150px;
+            border-radius: 15px;
+            background: #222;
+            overflow: hidden;
+            border: 1px solid var(--neon-red);
         }
+        .galeria-item img { width: 100%; height: 100%; object-fit: cover; }
 
-        .timer-val {
-            font-family: var(--font-destaque);
-            color: var(--neon-green);
-            font-size: 1.5rem;
-            display: block;
-        }
-
-        .heart {
-            position: fixed;
-            top: -20px;
-            color: var(--neon-red);
-            z-index: 5;
-            animation: fall linear forwards;
-        }
-
-        @keyframes fall {
-            to { transform: translateY(110vh) rotate(360deg); }
-        }
+        .heart { position: fixed; top: -20px; color: var(--neon-red); z-index: 5; animation: fall linear forwards; }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
     </style>
 </head>
 <body>
 
     <div id="loader">
-        <p style="font-family: var(--font-destaque); color: var(--neon-green); margin-bottom: 30px; letter-spacing: 2px;">SISTEMA PRONTO</p>
-        <button id="start-btn" onclick="entrar()">Acessar Agora</button>
+        <button id="start-btn" onclick="entrar()">Acessar Sistema</button>
     </div>
 
-    <div id="main-content">
-        <div class="status-bar">
-            <span>MODO: AMOR_ON</span>
-            <span>V. 2.0.25</span>
-        </div>
+    <!-- MENU INFERIOR -->
+    <nav id="main-nav">
+        <button onclick="showTab('inicio')" id="btn-inicio" class="active">INÍCIO</button>
+        <button onclick="showTab('fotos')" id="btn-fotos">FOTOS</button>
+        <button onclick="showTab('interacoes')" id="btn-interacoes">INTERAÇÕES</button>
+    </nav>
 
+    <!-- ABA 1: INÍCIO -->
+    <main id="inicio" class="tab-content active">
         <section class="card">
-            <span class="card-label">IDENTIFICAÇÃO</span>
             <div class="photo-container">
-                <img src="amor.jpeg.jpeg" alt="FOTO DO CASAL">
+                <img src="amor.jpeg.jpeg" alt="FOTO PRINCIPAL">
             </div>
-            <p class="nome-maria">MARIA</p>
-            <p style="color: var(--neon-red); font-size: 0.8rem; font-weight: bold; letter-spacing: 1px;">RANK: NAMORADA PERFEITA</p>
+            <h1 style="font-family: var(--font-destaque);">MARIA</h1>
+            <p style="color: var(--neon-red); font-weight: bold;">NAMORADA PERFEITA</p>
         </section>
 
         <section class="card">
-            <span class="card-label">TEMPO DE UNIÃO</span>
+            <p style="font-family: var(--font-destaque); font-size: 0.8rem;">TEMPO JUNTOS</p>
             <div class="timer-grid">
-                <div class="timer-box"><span class="timer-val" id="d">00</span><span style="font-size:0.6rem; font-weight: bold;">DIAS</span></div>
-                <div class="timer-box"><span class="timer-val" id="h">00</span><span style="font-size:0.6rem; font-weight: bold;">HRS</span></div>
-                <div class="timer-box"><span class="timer-val" id="m">00</span><span style="font-size:0.6rem; font-weight: bold;">MIN</span></div>
-                <div class="timer-box"><span class="timer-val" id="s">00</span><span style="font-size:0.6rem; font-weight: bold;">SEG</span></div>
+                <div class="timer-box"><span class="timer-val" id="d">00</span><span style="font-size:0.5rem">DIAS</span></div>
+                <div class="timer-box"><span class="timer-val" id="h">00</span><span style="font-size:0.5rem">HRS</span></div>
+                <div class="timer-box"><span class="timer-val" id="m">00</span><span style="font-size:0.5rem">MIN</span></div>
+                <div class="timer-box"><span class="timer-val" id="s">00</span><span style="font-size:0.5rem">SEG</span></div>
             </div>
         </section>
+    </main>
 
-        <section class="card">
-            <span class="card-label">MENSAGEM</span>
-            <p style="font-size: 1rem; line-height: 1.5; font-weight: 400;">"Foi assim quando eu te vi a primeira vez..."</p>
-            <p style="color: var(--neon-red); font-family: var(--font-destaque); font-size: 1.2rem;">TE AMO MUITO!</p>
-        </section>
+    <!-- ABA 2: FOTOS -->
+    <main id="fotos" class="tab-content">
+        <h2 style="font-family: var(--font-destaque);">NOSSA GALERIA</h2>
+        <div class="galeria-grid">
+            <!-- Adicione suas fotos aqui -->
+            <div class="galeria-item"><img src="amor.jpeg.jpeg"></div>
+            <div class="galeria-item"><img src="foto2.jpg" alt="Foto 2"></div>
+            <div class="galeria-item"><img src="foto3.jpg" alt="Foto 3"></div>
+            <div class="galeria-item"><img src="foto4.jpg" alt="Foto 4"></div>
+        </div>
+    </main>
 
-        <div id="music-player"></div>
-    </div>
+    <!-- ABA 3: INTERAÇÕES -->
+    <main id="interacoes" class="tab-content">
+        <h2 style="font-family: var(--font-destaque);">INTERAÇÕES</h2>
+        <div class="card">
+            <p>"Você é a pessoa mais especial do mundo."</p>
+            <button onclick="alert('Te amo infinito!')" style="background: var(--neon-red); border:none; padding: 10px; color: white; border-radius: 10px; cursor: pointer;">Clique para um Beijo</button>
+        </div>
+        <div class="card">
+            <p>Meta do dia:</p>
+            <p style="color: var(--neon-green)">[X] Te fazer sorrir</p>
+        </div>
+    </main>
+
+    <div id="music-player"></div>
 
     <script>
         function entrar() {
             document.getElementById('loader').style.display = 'none';
-            document.getElementById('main-content').style.display = 'block';
-
+            document.getElementById('main-nav').style.display = 'flex';
+            
             const player = document.getElementById('music-player');
-            player.innerHTML = `<iframe 
-                src="https://youtube-nocookie.com" 
-                style="display:none;" 
-                allow="autoplay">
-            </iframe>`;
+            player.innerHTML = `<iframe src="https://youtube-nocookie.com" style="display:none;" allow="autoplay"></iframe>`;
 
             setInterval(createHeart, 500);
         }
 
+        function showTab(tabId) {
+            // Esconde todas as abas
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            // Desativa todos os botões
+            document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active'));
+            
+            // Mostra a aba clicada e ativa o botão
+            document.getElementById(tabId).classList.add('active');
+            document.getElementById('btn-' + tabId).classList.add('active');
+        }
+
+        // Timer (mesma lógica anterior)
         const dataInicio = new Date(2025, 10, 15, 20, 30); 
         function atualizar() {
             const agora = new Date();
@@ -223,7 +241,6 @@
             }
         }
         setInterval(atualizar, 1000);
-        atualizar();
 
         function createHeart() {
             const heart = document.createElement('div');
