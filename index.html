@@ -3,19 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SISTEMA: KAUAN & MARIA ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <title>KAUAN & MARIA ❤️</title>
+    <!-- NOVAS FONTES: SYNE E INTER -->
+    <link href="https://googleapis.com" rel="stylesheet">
     <style>
         :root {
             --neon-red: #ff4d6d;
             --neon-green: #39ff14;
             --bg-dark: #0f0104;
+            --font-destaque: 'Syne', sans-serif;
+            --font-corpo: 'Inter', sans-serif;
         }
 
         body {
             background-color: var(--bg-dark);
             color: #fff;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: var(--font-corpo);
             margin: 0;
             display: flex;
             justify-content: center;
@@ -37,22 +40,23 @@
         }
 
         #start-btn {
-            background: transparent;
-            border: 2px solid var(--neon-red);
-            color: var(--neon-red);
-            padding: 20px 40px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.2rem;
+            background: var(--neon-red);
+            border: none;
+            color: #fff;
+            padding: 22px 50px;
+            font-family: var(--font-destaque);
+            font-size: 1.1rem;
             cursor: pointer;
-            box-shadow: 0 0 15px var(--neon-red);
+            box-shadow: 0 10px 30px rgba(255, 77, 109, 0.4);
+            border-radius: 50px; /* Botão mais moderno e arredondado */
             text-transform: uppercase;
-            transition: 0.3s;
+            transition: 0.4s;
+            letter-spacing: 1px;
         }
 
         #start-btn:hover {
-            background: var(--neon-red);
-            color: #fff;
-            box-shadow: 0 0 40px var(--neon-red);
+            transform: scale(1.05);
+            box-shadow: 0 15px 45px var(--neon-red);
         }
 
         /* CONTEÚDO PRINCIPAL */
@@ -65,38 +69,46 @@
         }
 
         .status-bar {
-            border-bottom: 1px solid var(--neon-red);
             padding: 10px;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
             color: var(--neon-red);
+            font-weight: bold;
+            letter-spacing: 2px;
         }
 
         .card {
-            border: 1px solid var(--neon-red);
-            background: rgba(255, 77, 109, 0.05);
-            padding: 20px;
-            margin-bottom: 20px;
+            border: 2px solid rgba(255, 77, 109, 0.2);
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px; /* Bordas arredondadas para um visual premium */
+            padding: 30px 20px;
+            margin-bottom: 25px;
             position: relative;
+            backdrop-filter: blur(10px);
         }
 
         .card-label {
             position: absolute;
-            top: -10px; left: 10px;
-            background: var(--bg-dark);
-            padding: 0 10px;
-            color: var(--neon-red);
-            font-size: 0.7rem;
-            font-weight: bold;
+            top: -12px; left: 50%;
+            transform: translateX(-50%);
+            background: var(--neon-red);
+            color: #fff;
+            padding: 4px 15px;
+            font-size: 0.65rem;
+            font-weight: 800;
+            font-family: var(--font-destaque);
+            border-radius: 10px;
         }
 
         .photo-container {
-            width: 200px; height: 200px;
+            width: 220px; height: 220px;
             margin: 0 auto 15px;
-            border: 2px solid var(--neon-red);
+            border-radius: 50%; /* Foto redonda combina mais com o estilo novo */
+            border: 4px solid var(--neon-red);
             overflow: hidden;
+            box-shadow: 0 0 30px rgba(255, 77, 109, 0.3);
         }
 
         .photo-container img {
@@ -104,20 +116,29 @@
             object-fit: cover;
         }
 
+        .nome-maria {
+            font-family: var(--font-destaque);
+            font-size: 2.2rem;
+            margin: 10px 0 5px;
+            text-transform: uppercase;
+        }
+
         .timer-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
+            gap: 15px;
         }
 
         .timer-box {
-            border: 1px solid rgba(255, 77, 109, 0.3);
-            padding: 10px 5px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px 5px;
+            border-radius: 12px;
         }
 
         .timer-val {
+            font-family: var(--font-destaque);
             color: var(--neon-green);
-            font-size: 1.1rem;
+            font-size: 1.5rem;
             display: block;
         }
 
@@ -137,39 +158,39 @@
 <body>
 
     <div id="loader">
-        <p style="color: var(--neon-green); margin-bottom: 20px;">> STATUS: DISPOSITIVO PRONTO</p>
-        <button id="start-btn" onclick="entrar()">[ ACESSAR SISTEMA ]</button>
+        <p style="font-family: var(--font-destaque); color: var(--neon-green); margin-bottom: 30px; letter-spacing: 2px;">SISTEMA PRONTO</p>
+        <button id="start-btn" onclick="entrar()">Acessar Agora</button>
     </div>
 
     <div id="main-content">
         <div class="status-bar">
-            <span>SISTEMA: ONLINE</span>
-            <span>USER: KAUAN & MARIA</span>
+            <span>MODO: AMOR_ON</span>
+            <span>V. 2.0.25</span>
         </div>
 
         <section class="card">
-            <span class="card-label">> IDENTIFICAÇÃO</span>
+            <span class="card-label">IDENTIFICAÇÃO</span>
             <div class="photo-container">
                 <img src="amor.jpeg.jpeg" alt="FOTO DO CASAL">
             </div>
-            <p style="font-size: 1.5rem; font-weight: bold; margin: 5px 0;">MARIA</p>
-            <p style="color: var(--neon-red); font-size: 0.7rem;">RANK: NAMORADA PERFEITA</p>
+            <p class="nome-maria">MARIA</p>
+            <p style="color: var(--neon-red); font-size: 0.8rem; font-weight: bold; letter-spacing: 1px;">RANK: NAMORADA PERFEITA</p>
         </section>
 
         <section class="card">
-            <span class="card-label">> TEMPO_DE_UNIÃO</span>
+            <span class="card-label">TEMPO DE UNIÃO</span>
             <div class="timer-grid">
-                <div class="timer-box"><span class="timer-val" id="d">00</span><span style="font-size:0.5rem">DIAS</span></div>
-                <div class="timer-box"><span class="timer-val" id="h">00</span><span style="font-size:0.5rem">HRS</span></div>
-                <div class="timer-box"><span class="timer-val" id="m">00</span><span style="font-size:0.5rem">MIN</span></div>
-                <div class="timer-box"><span class="timer-val" id="s">00</span><span style="font-size:0.5rem">SEG</span></div>
+                <div class="timer-box"><span class="timer-val" id="d">00</span><span style="font-size:0.6rem; font-weight: bold;">DIAS</span></div>
+                <div class="timer-box"><span class="timer-val" id="h">00</span><span style="font-size:0.6rem; font-weight: bold;">HRS</span></div>
+                <div class="timer-box"><span class="timer-val" id="m">00</span><span style="font-size:0.6rem; font-weight: bold;">MIN</span></div>
+                <div class="timer-box"><span class="timer-val" id="s">00</span><span style="font-size:0.6rem; font-weight: bold;">SEG</span></div>
             </div>
         </section>
 
         <section class="card">
-            <span class="card-label">> MENSAGEM</span>
-            <p style="font-size: 0.85rem;">"Foi assim quando eu te vi a primeira vez..."</p>
-            <p style="color: var(--neon-red); font-weight: bold;">TE AMO MUITO!</p>
+            <span class="card-label">MENSAGEM</span>
+            <p style="font-size: 1rem; line-height: 1.5; font-weight: 400;">"Foi assim quando eu te vi a primeira vez..."</p>
+            <p style="color: var(--neon-red); font-family: var(--font-destaque); font-size: 1.2rem;">TE AMO MUITO!</p>
         </section>
 
         <div id="music-player"></div>
@@ -182,7 +203,7 @@
 
             const player = document.getElementById('music-player');
             player.innerHTML = `<iframe 
-                src="https://www.youtube-nocookie.com/embed/vUI2PT3rKts?autoplay=1&start=49&controls=0&modestbranding=1" 
+                src="https://youtube-nocookie.com" 
                 style="display:none;" 
                 allow="autoplay">
             </iframe>`;
