@@ -274,7 +274,30 @@
             document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
             document.getElementById('btn-' + tabId).classList.add('active');
-        }
+        } 
+        function atualizarContador() {
+    // COLOQUE A SUA DATA AQUI (Ano, Mês - 1, Dia)
+    // Exemplo: se for 17 de Outubro de 2025, coloque (2025, 9, 17)
+    const dataInicio = new Date(2025, 10, 16); 
+    
+    const agora = new Date();
+    const diff = agora - dataInicio;
+
+    const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutos = Math.floor((diff / 1000 / 60) % 60);
+    const segundos = Math.floor((diff / 1000) % 60);
+
+    document.getElementById('d').innerText = dias.toString().padStart(2, '0');
+    document.getElementById('h').innerText = horas.toString().padStart(2, '0');
+    document.getElementById('m').innerText = minutos.toString().padStart(2, '0');
+    document.getElementById('s').innerText = segundos.toString().padStart(2, '0');
+}
+
+// Faz o contador rodar a cada 1 segundo
+setInterval(atualizarContador, 1000);
+atualizarContador();
+
     </script>
 </body>
 </html>
