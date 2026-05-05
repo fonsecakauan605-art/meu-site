@@ -39,7 +39,7 @@
         .timer-val { color: var(--neon-green); font-size: 1.4rem; display: block; font-weight: bold; }
         small { font-size: 0.55rem; color: #aaa; text-transform: uppercase; }
 
-        /* GALERIA */
+        /* GALERIA SEM REPETIÇÃO */
         .galeria-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .galeria-item { width: 100%; height: 140px; border-radius: 15px; overflow: hidden; border: 1px solid var(--neon-red); }
         .galeria-item img { width: 100%; height: 100%; object-fit: cover; }
@@ -48,6 +48,18 @@
         .compass { width: 70px; height: 70px; border: 2px solid var(--neon-red); border-radius: 50%; margin: 20px auto; position: relative; }
         .arrow { width: 2px; height: 30px; background: var(--neon-red); position: absolute; top: 15%; left: 49%; transform-origin: bottom center; animation: girar 4s infinite linear; }
         @keyframes girar { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        /* MURAL ESTILIZADO */
+        #mural {
+            background: rgba(57, 255, 20, 0.05);
+            border-left: 4px solid var(--neon-green);
+            padding: 15px;
+            border-radius: 10px;
+            color: var(--neon-green);
+            font-style: italic;
+            transition: opacity 0.3s;
+            margin-bottom: 15px;
+        }
 
         .btn-interativo { background: var(--neon-red); border: none; padding: 12px; color: white; border-radius: 10px; cursor: pointer; width: 95%; font-weight: bold; margin-top: 10px; text-transform: uppercase; }
         .input-estilizado { padding: 12px; border-radius: 10px; border: 1px solid var(--neon-red); background: #111; color: white; width: 85%; margin-bottom: 10px; outline: none; }
@@ -61,7 +73,7 @@
         <button onclick="showTab('interacoes')" id="btn-interacoes">INTERAÇÕES</button>
     </nav>
 
-    <!-- INÍCIO COM FOTO ÚNICA E CONTADOR -->
+    <!-- INÍCIO -->
     <main id="inicio" class="tab-content active">
         <section class="card">
             <div class="photo-container"><img src="amor.jpeg.jpeg"></div>
@@ -78,11 +90,11 @@
         </section>
     </main>
 
-    <!-- FOTOS -->
+    <!-- FOTOS (CORRIGIDO) -->
     <main id="fotos" class="tab-content">
         <div class="galeria-grid">
             <div class="galeria-item"><img src="amor.jpeg.jpeg"></div>
-            <div class="galeria-item"><img src="Amor1.jpeg.jpeg"></div>
+            <div class="galeria-item"><img src="amor1.jpeg.jpeg"></div>
             <div class="galeria-item"><img src="amor2.jpeg.jpeg"></div>
             <div class="galeria-item"><img src="amor3.jpeg.jpeg"></div>
             <div class="galeria-item"><img src="amor4.jpeg.jpeg"></div>
@@ -96,9 +108,11 @@
             <div class="compass"><div class="arrow"></div></div>
         </section>
 
+        <!-- MURAL DE RECADOS -->
         <section class="card">
-            <div id="mural" style="color: var(--neon-green); margin-bottom: 15px; font-style: italic;">"O que quer me dizer hoje?"</div>
-            <input type="text" id="input-mural" class="input-estilizado" placeholder="Escreva um recado...">
+            <h3>MURAL DE RECADOS</h3>
+            <div id="mural">"Deixe um recado especial aqui..."</div>
+            <input type="text" id="input-mural" class="input-estilizado" placeholder="Escreva para seu amor...">
             <button class="btn-interativo" onclick="postarRecado()">Enviar Recado ✏️</button>
         </section>
 
@@ -126,11 +140,16 @@
         }
 
         function postarRecado() {
-            const txt = document.getElementById('input-mural').value;
-            if(txt) {
-                document.getElementById('mural').innerText = `"${txt}"`;
-                enviarNotif("Novo Recado! ✏️", txt);
-                document.getElementById('input-mural').value = "";
+            const input = document.getElementById('input-mural');
+            const mural = document.getElementById('mural');
+            if(input.value.trim() !== "") {
+                mural.style.opacity = "0";
+                setTimeout(() => {
+                    mural.innerText = `"${input.value}"`;
+                    mural.style.opacity = "1";
+                }, 200);
+                enviarNotif("Novo Recado! ✏️", input.value);
+                input.value = "";
             }
         }
 
@@ -138,7 +157,7 @@
         function aumentarSaudade() {
             saudades++;
             document.getElementById('count-saudade').innerText = saudades;
-            enviarNotif("Saudade! ❤️", "Ele(a) pensou em você!");
+            enviarNotif("Saudade! ❤️", "Alguém pensou em você agora!");
         }
 
         function atualizarTimer() {
