@@ -9,7 +9,6 @@
             --neon-red: #ff4d6d;
             --neon-green: #39ff14;
             --bg-dark: #0a0104;
-            --font-destaque: 'Syne', sans-serif;
         }
 
         body { background-color: var(--bg-dark); color: #fff; font-family: 'Inter', sans-serif; margin: 0; padding-bottom: 100px; }
@@ -30,18 +29,17 @@
 
         .card { border: 2px solid rgba(255, 77, 109, 0.2); background: rgba(255, 255, 255, 0.03); border-radius: 20px; padding: 20px; margin-bottom: 20px; }
 
-        /* CONTADOR COM FOTOS DE FUNDO */
-        .timer-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px; }
-        .timer-box { 
-            height: 100px; border-radius: 15px; position: relative; overflow: hidden; 
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            border: 2px solid var(--neon-red); background-size: cover; background-position: center;
-        }
-        .timer-box::after { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 1; }
-        .timer-val, small { position: relative; z-index: 2; font-weight: bold; }
-        .timer-val { color: var(--neon-green); font-size: 1.8rem; }
+        /* FOTO DE PERFIL ÚNICA */
+        .photo-container { width: 150px; height: 150px; margin: 0 auto 20px; border-radius: 50%; border: 4px solid var(--neon-red); overflow: hidden; box-shadow: 0 0 15px var(--neon-red); }
+        .photo-container img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* GALERIA DE FOTOS */
+        /* CONTADOR SIMPLES */
+        .timer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px; }
+        .timer-box { background: rgba(255, 255, 255, 0.05); padding: 15px 5px; border-radius: 12px; border: 1px solid rgba(255, 77, 109, 0.3); }
+        .timer-val { color: var(--neon-green); font-size: 1.4rem; display: block; font-weight: bold; }
+        small { font-size: 0.55rem; color: #aaa; text-transform: uppercase; }
+
+        /* GALERIA */
         .galeria-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .galeria-item { width: 100%; height: 140px; border-radius: 15px; overflow: hidden; border: 1px solid var(--neon-red); }
         .galeria-item img { width: 100%; height: 100%; object-fit: cover; }
@@ -51,7 +49,6 @@
         .arrow { width: 2px; height: 30px; background: var(--neon-red); position: absolute; top: 15%; left: 49%; transform-origin: bottom center; animation: girar 4s infinite linear; }
         @keyframes girar { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-        /* BOTÕES E INPUTS */
         .btn-interativo { background: var(--neon-red); border: none; padding: 12px; color: white; border-radius: 10px; cursor: pointer; width: 95%; font-weight: bold; margin-top: 10px; text-transform: uppercase; }
         .input-estilizado { padding: 12px; border-radius: 10px; border: 1px solid var(--neon-red); background: #111; color: white; width: 85%; margin-bottom: 10px; outline: none; }
     </style>
@@ -64,21 +61,24 @@
         <button onclick="showTab('interacoes')" id="btn-interacoes">INTERAÇÕES</button>
     </nav>
 
-    <!-- ABA INÍCIO -->
+    <!-- INÍCIO COM FOTO ÚNICA E CONTADOR -->
     <main id="inicio" class="tab-content active">
         <section class="card">
-            <h1 style="font-family: var(--font-destaque); letter-spacing: 2px;">KAUAN & MARIA</h1>
+            <div class="photo-container"><img src="amor.jpeg.jpeg"></div>
+            <h1 style="letter-spacing: 2px; font-size: 1.5rem; margin-bottom: 20px;">KAUAN & MARIA</h1>
+            
             <div class="timer-grid">
-                <div class="timer-box" style="background-image: url('amor1.jpeg.jpeg');"><span class="timer-val" id="d">00</span><small>DIAS</small></div>
-                <div class="timer-box" style="background-image: url('Amor1.jpeg.jpeg');"><span class="timer-val" id="h">00</span><small>HORAS</small></div>
-                <div class="timer-box" style="background-image: url('amor3.jpeg.jpeg');"><span class="timer-val" id="m">00</span><small>MINUTOS</small></div>
-                <div class="timer-box" style="background-image: url('amor4.jpeg.jpeg');"><span class="timer-val" id="s">00</span><small>SEGUNDOS</small></div>
+                <div class="timer-box"><span class="timer-val" id="d">00</span><small>Dias</small></div>
+                <div class="timer-box"><span class="timer-val" id="h">00</span><small>Hrs</small></div>
+                <div class="timer-box"><span class="timer-val" id="m">00</span><small>Min</small></div>
+                <div class="timer-box"><span class="timer-val" id="s">00</span><small>Seg</small></div>
             </div>
-            <button class="btn-interativo" onclick="pedirPermissao()" style="background: #222; font-size: 0.65rem; margin-top: 25px;">🔔 Ativar Notificações do Nosso Site</button>
+
+            <button class="btn-interativo" onclick="pedirPermissao()" style="background: #222; font-size: 0.6rem; margin-top: 30px;">🔔 Ativar Notificações</button>
         </section>
     </main>
 
-    <!-- ABA FOTOS -->
+    <!-- FOTOS -->
     <main id="fotos" class="tab-content">
         <div class="galeria-grid">
             <div class="galeria-item"><img src="amor.jpeg.jpeg"></div>
@@ -89,76 +89,48 @@
         </div>
     </main>
 
-    <!-- ABA INTERAÇÕES -->
+    <!-- INTERAÇÕES -->
     <main id="interacoes" class="tab-content">
         <section class="card">
-            <h3 style="color: var(--neon-red);">BÚSSOLA DO AMOR</h3>
+            <h3>BÚSSOLA DO AMOR</h3>
             <div class="compass"><div class="arrow"></div></div>
-            <p style="font-size: 0.7rem;">Sempre para você.</p>
         </section>
 
         <section class="card">
-            <h3 style="color: var(--neon-red);">MURAL DE RECADOS</h3>
-            <div id="mural" style="color: var(--neon-green); margin-bottom: 15px; font-style: italic;">"Deixe seu recado..."</div>
-            <input type="text" id="input-mural" class="input-estilizado" placeholder="Escreva algo...">
-            <button class="btn-interativo" onclick="postarRecado()">Colar no Mural ✏️</button>
+            <div id="mural" style="color: var(--neon-green); margin-bottom: 15px; font-style: italic;">"O que quer me dizer hoje?"</div>
+            <input type="text" id="input-mural" class="input-estilizado" placeholder="Escreva um recado...">
+            <button class="btn-interativo" onclick="postarRecado()">Enviar Recado ✏️</button>
         </section>
 
         <section class="card">
-            <h3 style="color: var(--neon-red);">CÁPSULA DO TEMPO ⏳</h3>
-            <textarea id="texto-capsula" class="input-estilizado" style="height: 60px;" placeholder="Mensagem para o futuro..."></textarea>
-            <button class="btn-interativo" onclick="salvarCapsula()">Trancar na Cápsula</button>
-        </section>
-
-        <section class="card">
-            <h3 style="color: var(--neon-red);">SAUDADEÔMETRO</h3>
+            <h3>SAUDADEÔMETRO</h3>
             <div style="font-size: 2.5rem; color: var(--neon-green); font-weight: bold;" id="count-saudade">0</div>
             <button class="btn-interativo" onclick="aumentarSaudade()">Pensei em Você ❤️</button>
         </section>
     </main>
 
     <script>
-        // Sistema de Notificações
         function pedirPermissao() {
-            if (Notification.permission !== "granted") {
-                Notification.requestPermission().then(permission => {
-                    if (permission === "granted") {
-                        new Notification("K & M ❤️", { body: "Prontinho! Agora vocês receberão nossos alertas de amor." });
-                    }
-                });
-            } else {
-                alert("As notificações já estão ativadas!");
-            }
+            Notification.requestPermission().then(p => { if(p === "granted") new Notification("K & M ❤️", { body: "Notificações ligadas!" }); });
         }
 
         function enviarNotif(titulo, msg) {
-            if (Notification.permission === "granted") {
-                new Notification(titulo, { body: msg });
-            }
+            if (Notification.permission === "granted") new Notification(titulo, { body: msg });
         }
 
-        // Troca de Abas
         function showTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
             document.getElementById('btn-' + tabId).classList.add('active');
         }
 
-        // Funções de Interação
         function postarRecado() {
             const txt = document.getElementById('input-mural').value;
             if(txt) {
                 document.getElementById('mural').innerText = `"${txt}"`;
-                enviarNotif("Mural Atualizado! ✏️", txt);
+                enviarNotif("Novo Recado! ✏️", txt);
                 document.getElementById('input-mural').value = "";
-            }
-        }
-
-        function salvarCapsula() {
-            if(document.getElementById('texto-capsula').value) {
-                alert("Cápsula trancada! Só poderá ser aberta em 15/11/2026.");
-                document.getElementById('texto-capsula').value = "";
             }
         }
 
@@ -166,12 +138,10 @@
         function aumentarSaudade() {
             saudades++;
             document.getElementById('count-saudade').innerText = saudades;
-            enviarNotif("Aviso de Amor ❤️", "Alguém acabou de sentir sua falta!");
+            enviarNotif("Saudade! ❤️", "Ele(a) pensou em você!");
         }
 
-        // Contador Automático
         function atualizarTimer() {
-            // DATA AJUSTADA: 15 de Novembro de 2025 às 00:30
             const dataAlvo = new Date(2025, 10, 15, 0, 30, 0); 
             const agora = new Date();
             const diff = agora - dataAlvo;
