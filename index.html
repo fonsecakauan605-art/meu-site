@@ -26,7 +26,7 @@
             overflow-x: hidden;
         }
 
-        /* --- ESTILO DA TELA DE SENHA --- */
+        /* --- TELA DE SENHA --- */
         #tela-senha {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -51,7 +51,6 @@
             width: 200px;
         }
 
-        /* TELA DE ENTRADA ORIGINAL */
         #loader {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -74,7 +73,6 @@
             box-shadow: 0 10px 30px rgba(255, 77, 109, 0.4);
         }
 
-        /* NAVEGAÇÃO */
         nav {
             position: fixed;
             bottom: 20px;
@@ -104,7 +102,6 @@
 
         nav button.active { color: var(--neon-red); transform: scale(1.1); }
 
-        /* SEÇÕES */
         .tab-content {
             display: none;
             padding: 20px;
@@ -126,7 +123,6 @@
             margin-bottom: 20px;
         }
 
-        /* ABA "PARA VOCÊ" - CANVAS ANIMADO */
         .heart-canvas-container {
             background: #000;
             width: 100%;
@@ -164,7 +160,6 @@
             letter-spacing: 2px;
         }
 
-        /* FOTOS E TIMER */
         .photo-container {
             width: 160px; height: 160px; margin: 0 auto 15px; border-radius: 50%;
             border: 4px solid var(--neon-red); overflow: hidden; box-shadow: 0 0 30px rgba(255, 77, 109, 0.3);
@@ -183,14 +178,12 @@
 </head>
 <body>
 
-    <!-- PORTA DE SENHA (SÓ APARECE UMA VEZ) -->
     <div id="tela-senha">
         <h2 style="color:var(--neon-red); font-family: var(--font-destaque);">SISTEMA PRIVADO</h2>
         <input type="password" id="inputPass" class="input-senha" placeholder="SENHA">
         <button id="start-btn" style="padding: 15px 30px;" onclick="validarSenha()">Entrar</button>
     </div>
 
-    <!-- TELA DE ENTRADA ORIGINAL -->
     <div id="loader" style="display: none;">
         <button id="start-btn" onclick="entrar()">Acessar Sistema</button>
     </div>
@@ -204,9 +197,7 @@
 
     <main id="inicio" class="tab-content active">
         <section class="card">
-            <div class="photo-container">
-                <img src="amor.jpeg.jpeg" alt="FOTO PRINCIPAL">
-            </div>
+            <div class="photo-container"><img src="amor.jpeg.jpeg" alt="FOTO PRINCIPAL"></div>
             <h1 style="font-family: var(--font-destaque);">MARIA</h1>
             <p style="color: var(--neon-red); font-weight: bold;">NAMORADA PERFEITA</p>
         </section>
@@ -244,16 +235,13 @@
     </main>
 
     <script>
-        // LÓGICA DA SENHA (2008)
+        // LÓGICA DA SENHA E MEMÓRIA
         function validarSenha() {
-            const senha = document.getElementById('inputPass').value;
-            if (senha === "2008") {
+            if (document.getElementById('inputPass').value === "2008") {
                 localStorage.setItem("acesso_perm", "true");
                 document.getElementById('tela-senha').style.display = 'none';
                 document.getElementById('loader').style.display = 'flex';
-            } else {
-                alert("Senha Incorreta!");
-            }
+            } else { alert("Senha Incorreta!"); }
         }
 
         window.onload = function() {
@@ -261,9 +249,10 @@
                 document.getElementById('tela-senha').style.display = 'none';
                 document.getElementById('loader').style.display = 'flex';
             }
+            atualizarContador();
+            setInterval(atualizarContador, 1000);
         };
 
-        // SUAS FUNÇÕES ORIGINAIS
         function entrar() {
             document.getElementById('loader').style.display = 'none';
             document.getElementById('main-nav').style.display = 'flex';
@@ -274,30 +263,24 @@
             document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
             document.getElementById('btn-' + tabId).classList.add('active');
-        } 
+        }
+
+        // LÓGICA DO CONTADOR (170 dias atrás)
         function atualizarContador() {
-    // COLOQUE A SUA DATA AQUI (Ano, Mês - 1, Dia)
-    // Exemplo: se for 17 de Outubro de 2025, coloque (2025, 9, 17)
-    const dataInicio = new Date(2025, 10, 16); 
-    
-    const agora = new Date();
-    const diff = agora - dataInicio;
+            const dataInicio = new Date("2025-11-16T00:00:00"); 
+            const agora = new Date();
+            const diff = agora - dataInicio;
 
-    const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutos = Math.floor((diff / 1000 / 60) % 60);
-    const segundos = Math.floor((diff / 1000) % 60);
+            const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutos = Math.floor((diff / 1000 / 60) % 60);
+            const segundos = Math.floor((diff / 1000) % 60);
 
-    document.getElementById('d').innerText = dias.toString().padStart(2, '0');
-    document.getElementById('h').innerText = horas.toString().padStart(2, '0');
-    document.getElementById('m').innerText = minutos.toString().padStart(2, '0');
-    document.getElementById('s').innerText = segundos.toString().padStart(2, '0');
-}
-
-// Faz o contador rodar a cada 1 segundo
-setInterval(atualizarContador, 1000);
-atualizarContador();
-
+            document.getElementById('d').innerText = dias.toString().padStart(2, '0');
+            document.getElementById('h').innerText = horas.toString().padStart(2, '0');
+            document.getElementById('m').innerText = minutos.toString().padStart(2, '0');
+            document.getElementById('s').innerText = segundos.toString().padStart(2, '0');
+        }
     </script>
 </body>
 </html>
