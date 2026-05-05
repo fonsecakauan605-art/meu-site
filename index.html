@@ -25,6 +25,7 @@
             overflow-x: hidden;
         }
 
+        /* TELA DE ENTRADA */
         #loader {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -47,6 +48,7 @@
             box-shadow: 0 10px 30px rgba(255, 77, 109, 0.4);
         }
 
+        /* NAVEGAÇÃO */
         nav {
             position: fixed;
             bottom: 20px;
@@ -71,10 +73,12 @@
             font-family: var(--font-destaque);
             font-size: 0.7rem;
             cursor: pointer;
+            transition: 0.3s;
         }
 
         nav button.active { color: var(--neon-red); transform: scale(1.1); }
 
+        /* SEÇÕES */
         .tab-content {
             display: none;
             padding: 20px;
@@ -86,7 +90,7 @@
 
         .tab-content.active { display: block; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .card {
             border: 2px solid rgba(255, 77, 109, 0.2);
@@ -96,6 +100,7 @@
             margin-bottom: 20px;
         }
 
+        /* ELEMENTOS DA INTERAÇÃO */
         .btn-interativo {
             background: var(--neon-red);
             border: none;
@@ -121,21 +126,13 @@
             margin-top: 10px;
         }
 
-        .contador-sdd {
-            font-size: 2.5rem;
-            color: var(--neon-red);
-            font-family: var(--font-destaque);
-            display: block;
-            text-shadow: 0 0 15px rgba(255, 77, 109, 0.5);
-        }
-
-        /* ESTILO DOS HUMORES */
         .mood-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
             margin-top: 10px;
         }
+
         .mood-btn {
             background: rgba(255,255,255,0.05);
             border: 1px solid rgba(255,255,255,0.1);
@@ -143,20 +140,29 @@
             padding: 10px;
             cursor: pointer;
             font-size: 1.2rem;
-            transition: 0.3s;
         }
-        .mood-btn:hover { background: var(--neon-red); }
+
+        /* FOTOS E TIMER */
+        .photo-container {
+            width: 180px; height: 180px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            border: 4px solid var(--neon-red);
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(255, 77, 109, 0.3);
+        }
+        .photo-container img { width: 100%; height: 100%; object-fit: cover; }
+
+        .timer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+        .timer-box { background: rgba(255, 255, 255, 0.05); padding: 15px 5px; border-radius: 12px; }
+        .timer-val { font-family: var(--font-destaque); color: var(--neon-green); font-size: 1.1rem; display: block; }
+
+        .galeria-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .galeria-item { width: 100%; height: 150px; border-radius: 15px; background: #222; overflow: hidden; border: 1px solid var(--neon-red); }
+        .galeria-item img { width: 100%; height: 100%; object-fit: cover; }
 
         .heart { position: fixed; top: -20px; color: var(--neon-red); z-index: 5; animation: fall linear forwards; pointer-events: none; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
-
-        /* MURAL */
-        #mural-texto {
-            font-style: italic;
-            color: var(--neon-blue);
-            margin: 10px 0;
-            display: block;
-        }
     </style>
 </head>
 <body>
@@ -173,20 +179,33 @@
 
     <main id="inicio" class="tab-content active">
         <section class="card">
-            <h1 style="font-family: var(--font-destaque);">KAUAN & MARIA</h1>
-            <p style="color: var(--neon-red); font-weight: bold;">JUNTOS HÁ</p>
-            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
-                <div class="card" style="padding: 10px; margin: 0;"><span id="d" style="color: var(--neon-green);">00</span><br><small>DIAS</small></div>
-                <div class="card" style="padding: 10px; margin: 0;"><span id="h" style="color: var(--neon-green);">00</span><br><small>HRS</small></div>
-                <div class="card" style="padding: 10px; margin: 0;"><span id="m" style="color: var(--neon-green);">00</span><br><small>MIN</small></div>
-                <div class="card" style="padding: 10px; margin: 0;"><span id="s" style="color: var(--neon-green);">00</span><br><small>SEG</small></div>
+            <div class="photo-container">
+                <img src="amor.jpeg.jpeg" alt="FOTO PRINCIPAL">
+            </div>
+            <h1 style="font-family: var(--font-destaque); margin-bottom: 5px;">MARIA</h1>
+            <p style="color: var(--neon-red); font-weight: bold; margin-top: 0;">NAMORADA PERFEITA</p>
+        </section>
+
+        <section class="card">
+            <p style="font-family: var(--font-destaque); font-size: 0.7rem; letter-spacing: 2px;">TEMPO JUNTOS</p>
+            <div class="timer-grid">
+                <div class="timer-box"><span class="timer-val" id="d">00</span><span style="font-size:0.5rem">DIAS</span></div>
+                <div class="timer-box"><span class="timer-val" id="h">00</span><span style="font-size:0.5rem">HRS</span></div>
+                <div class="timer-box"><span class="timer-val" id="m">00</span><span style="font-size:0.5rem">MIN</span></div>
+                <div class="timer-box"><span class="timer-val" id="s">00</span><span style="font-size:0.5rem">SEG</span></div>
             </div>
         </section>
     </main>
 
     <main id="fotos" class="tab-content">
-        <h2 style="font-family: var(--font-destaque);">MEMÓRIAS</h2>
-        <p>Espaço reservado para suas fotos!</p>
+        <h2 style="font-family: var(--font-destaque);">NOSSA GALERIA</h2>
+        <div class="galeria-grid">
+            <div class="galeria-item"><img src="amor.jpeg.jpeg"></div>
+            <div class="galeria-item"><img src="amor1.jpeg.jpeg"></div>
+            <div class="galeria-item"><img src="Amor1.jpeg.jpeg"></div>
+            <div class="galeria-item"><img src="amor3.jpeg.jpeg"></div>
+            <div class="galeria-item"><img src="amor4.jpeg.jpeg"></div>
+        </div>
     </main>
 
     <main id="interacoes" class="tab-content">
@@ -194,14 +213,14 @@
 
         <div class="card">
             <h3 style="font-size: 0.7rem; text-transform: uppercase;">Aviso Imediato</h3>
-            <button class="btn-interativo" onclick="chuvaCidadao()" style="background: var(--neon-blue); color: #000;">Tô pensando em você agora! ⚡</button>
+            <button class="btn-interativo" onclick="chuvaCores()" style="background: var(--neon-blue); color: #000;">Tô pensando em você agora! ⚡</button>
         </div>
 
         <div class="card">
             <h3 style="font-size: 0.7rem; text-transform: uppercase;">Mural de Recados</h3>
-            <span id="mural-texto">"Nenhum recado ainda..."</span>
-            <input type="text" id="input-mural" class="input-style" placeholder="Deixe um recado rápido...">
-            <button class="btn-interativo" onclick="atualizarMural()">Colar Recado 📌</button>
+            <span id="mural-texto" style="font-style: italic; color: var(--neon-blue); display: block; margin: 10px 0;">"Nenhum recado ainda..."</span>
+            <input type="text" id="input-mural" class="input-style" placeholder="Deixe um recado...">
+            <button class="btn-interativo" onclick="atualizarMural()">Fixar Recado 📌</button>
         </div>
 
         <div class="card">
@@ -219,18 +238,18 @@
 
         <div class="card">
             <h3 style="font-size: 0.7rem; text-transform: uppercase;">Saudômetro</h3>
-            <span class="contador-sdd" id="sdd-count">0</span>
+            <span id="sdd-count" style="font-size: 2.5rem; color: var(--neon-red); font-family: var(--font-destaque); display: block;">0</span>
             <button class="btn-interativo" onclick="matarSaudade()">Aumentar Saudade +1</button>
         </div>
 
         <div class="card" id="capsula-container">
             <h3 style="font-size: 0.7rem; text-transform: uppercase;">Cápsula do Tempo ⏳</h3>
             <div id="capsula-form">
-                <textarea id="texto-capsula" class="input-style" rows="3" placeholder="Escreva algo para lerem em 1 ano..."></textarea>
+                <textarea id="texto-capsula" class="input-style" rows="3" placeholder="Mensagem para lerem daqui a 1 ano..."></textarea>
                 <button class="btn-interativo" onclick="selarCapsula()" style="background: #fff; color: #000;">Selar Cápsula</button>
             </div>
             <div id="capsula-status" style="display:none;">
-                <p id="countdown-capsula" style="color: var(--neon-red);"></p>
+                <p id="countdown-capsula" style="color: var(--neon-red); font-weight: bold;"></p>
             </div>
         </div>
     </main>
@@ -239,7 +258,7 @@
         function entrar() {
             document.getElementById('loader').style.display = 'none';
             document.getElementById('main-nav').style.display = 'flex';
-            carregarDados();
+            carregarTudo();
         }
 
         function showTab(tabId) {
@@ -249,26 +268,28 @@
             document.getElementById('btn-' + tabId).classList.add('active');
         }
 
-        // TIMER
+        // TIMER INICIAL
         const dataInicio = new Date(2025, 10, 15, 20, 30); 
         setInterval(() => {
             const diff = new Date() - dataInicio;
-            document.getElementById('d').innerText = Math.floor(diff / 86400000);
-            document.getElementById('h').innerText = Math.floor((diff / 3600000) % 24).toString().padStart(2, '0');
-            document.getElementById('m').innerText = Math.floor((diff / 60000) % 60).toString().padStart(2, '0');
-            document.getElementById('s').innerText = Math.floor((diff / 1000) % 60).toString().padStart(2, '0');
+            if(diff > 0) {
+                document.getElementById('d').innerText = Math.floor(diff / 86400000);
+                document.getElementById('h').innerText = Math.floor((diff / 3600000) % 24).toString().padStart(2, '0');
+                document.getElementById('m').innerText = Math.floor((diff / 60000) % 60).toString().padStart(2, '0');
+                document.getElementById('s').innerText = Math.floor((diff / 1000) % 60).toString().padStart(2, '0');
+            }
         }, 1000);
 
-        // INTERAÇÕES
-        function chuvaCidadao() {
-            for(let i=0; i<30; i++) setTimeout(createHeart, i*50);
+        // FUNÇÕES DE INTERAÇÃO
+        function chuvaCores() {
+            for(let i=0; i<30; i++) setTimeout(createHeart, i*60);
         }
 
         function createHeart() {
             const h = document.createElement('div');
             h.classList.add('heart'); h.innerHTML = '❤️';
             h.style.left = Math.random() * 100 + 'vw';
-            const dur = Math.random() * 2 + 3;
+            const dur = Math.random() * 3 + 3;
             h.style.animationDuration = dur + 's';
             document.body.appendChild(h);
             setTimeout(() => h.remove(), dur * 1000);
@@ -277,52 +298,54 @@
         function atualizarMural() {
             const txt = document.getElementById('input-mural').value;
             if(!txt) return;
-            localStorage.setItem('mural', txt);
+            localStorage.setItem('mural_msg', txt);
             document.getElementById('mural-texto').innerText = `"${txt}"`;
             document.getElementById('input-mural').value = "";
         }
 
         function setMood(mood) {
-            localStorage.setItem('meu_mood', mood);
-            document.getElementById('current-mood').innerText = "Status atual: " + mood;
+            localStorage.setItem('user_mood', mood);
+            document.getElementById('current-mood').innerText = "Status: " + mood;
         }
 
-        let sdds = localStorage.getItem('saudades') || 0;
+        let sdds = localStorage.getItem('sdd_val') || 0;
         function matarSaudade() {
-            sdds++; localStorage.setItem('saudades', sdds);
+            sdds++; localStorage.setItem('sdd_val', sdds);
             document.getElementById('sdd-count').innerText = sdds;
             createHeart();
         }
 
         function selarCapsula() {
             const txt = document.getElementById('texto-capsula').value;
-            if(txt.length < 5) return;
-            localStorage.setItem('capsula_texto', txt);
-            localStorage.setItem('capsula_data', new Date().getTime());
+            if(txt.trim().length < 5) return alert("Escreva um pouco mais!");
+            localStorage.setItem('cap_txt', txt);
+            localStorage.setItem('cap_date', new Date().getTime());
             verificarCapsula();
         }
 
         function verificarCapsula() {
-            const data = localStorage.getItem('capsula_data');
+            const data = localStorage.getItem('cap_date');
             if(data) {
                 document.getElementById('capsula-form').style.display = 'none';
                 document.getElementById('capsula-status').style.display = 'block';
                 const lib = new Date(parseInt(data)); lib.setFullYear(lib.getFullYear() + 1);
+                
                 setInterval(() => {
                     const dist = lib - new Date();
                     if(dist < 0) {
-                        document.getElementById('capsula-status').innerHTML = `🔓 Aberta: "${localStorage.getItem('capsula_texto')}"`;
+                        document.getElementById('capsula-status').innerHTML = `🔓 Liberado: <br> "${localStorage.getItem('cap_txt')}"`;
                     } else {
-                        document.getElementById('countdown-capsula').innerText = `Libera em: ${Math.floor(dist/86400000)} dias`;
+                        const dias = Math.floor(dist/86400000);
+                        document.getElementById('countdown-capsula').innerText = `Abre em: ${dias} dias`;
                     }
                 }, 1000);
             }
         }
 
-        function carregarDados() {
+        function carregarTudo() {
             document.getElementById('sdd-count').innerText = sdds;
-            if(localStorage.getItem('mural')) document.getElementById('mural-texto').innerText = `"${localStorage.getItem('mural')}"`;
-            if(localStorage.getItem('meu_mood')) document.getElementById('current-mood').innerText = "Status atual: " + localStorage.getItem('meu_mood');
+            if(localStorage.getItem('mural_msg')) document.getElementById('mural-texto').innerText = `"${localStorage.getItem('mural_msg')}"`;
+            if(localStorage.getItem('user_mood')) document.getElementById('current-mood').innerText = "Status: " + localStorage.getItem('user_mood');
             verificarCapsula();
         }
     </script>
