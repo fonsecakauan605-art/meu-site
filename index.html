@@ -22,7 +22,7 @@
         }
         .login-card {
             background: rgba(255, 255, 255, 0.05); padding: 30px; border-radius: 25px; 
-            border: 1px solid var(--neon-red); width: 90%; max-width: 320px; text-align: center;
+            border: 2px solid var(--neon-red); width: 90%; max-width: 320px; text-align: center;
             backdrop-filter: blur(10px);
         }
         .input-login {
@@ -76,7 +76,6 @@
 
         #mural { background: rgba(57, 255, 20, 0.05); border-left: 4px solid var(--neon-green); padding: 15px; border-radius: 10px; color: var(--neon-green); font-style: italic; transition: opacity 0.3s; margin-bottom: 15px; }
 
-        /* BOTÕES INTERATIVOS (BLOQUEADOS POR PADRÃO) */
         .btn-interativo { 
             background: var(--cor-bloqueado); 
             border: none; padding: 12px; color: white; 
@@ -125,64 +124,83 @@
                 </div>
                 <p id="modo-txt" style="font-size: 0.7rem; color: #666; margin-top: 20px;"></p>
             </section>
-    </main>
+        </main>
 
-    <main id="fotos" class="tab-content">
-        <div class="galeria-grid">
-            <div class="galeria-item"><img src="amor.jpeg.jpeg"></div>
-            <div class="galeria-item"><img src="amor1.jpeg.jpeg"></div>
-            <div class="galeria-item"><img src="amor2.jpeg.jpeg"></div>
-            <div class="galeria-item"><img src="amor3.jpeg.jpeg"></div>
-            <div class="galeria-item"><img src="amor4.jpeg.jpeg"></div>
-        </div>
-    </main>
+        <main id="fotos" class="tab-content">
+            <div class="galeria-grid">
+                <div class="galeria-item"><img src="amor.jpeg.jpeg"></div>
+                <div class="galeria-item"><img src="amor1.jpeg.jpeg"></div>
+                <div class="galeria-item"><img src="amor2.jpeg.jpeg"></div>
+                <div class="galeria-item"><img src="amor3.jpeg.jpeg"></div>
+                <div class="galeria-item"><img src="amor4.jpeg.jpeg"></div>
+            </div>
+        </main>
 
-    <main id="interacoes" class="tab-content">
-        <section class="card">
-            <h3>BÚSSOLA DO AMOR</h3>
-            <div class="compass"><div class="arrow"></div></div>
-        </section>
+        <main id="interacoes" class="tab-content">
+            <section class="card">
+                <h3>BÚSSOLA DO AMOR</h3>
+                <div class="compass"><div class="arrow"></div></div>
+            </section>
 
-        <section class="card">
-            <h3>MURAL DE RECADOS</h3>
-            <div id="mural">"Deixe um recado especial aqui..."</div>
-            <input type="text" id="input-mural" class="input-estilizado" placeholder="Bloqueado para visitantes" disabled>
-            <button class="btn-interativo" id="btn-mural" onclick="postarRecado()">Enviar Recado ✏️</button>
-        </section>
+            <section class="card">
+                <h3>MURAL DE RECADOS</h3>
+                <div id="mural">"Deixe um recado especial aqui..."</div>
+                <input type="text" id="input-mural" class="input-estilizado" placeholder="Bloqueado para visitantes" disabled>
+                <button class="btn-interativo" id="btn-mural" onclick="postarRecado()">Enviar Recado ✏️</button>
+            </section>
 
-        <section class="card">
-            <h3>SAUDADEÔMETRO</h3>
-            <div style="font-size: 2.5rem; color: var(--neon-green); font-weight: bold;" id="count-saudade">0</div>
-            <button class="btn-interativo" id="btn-saudade" onclick="aumentarSaudade()">Pensei em Você ❤️</button>
-        </section>
-    </main>
+            <section class="card">
+                <h3>SAUDADEÔMETRO</h3>
+                <div style="font-size: 2.5rem; color: var(--neon-green); font-weight: bold;" id="count-saudade">0</div>
+                <button class="btn-interativo" id="btn-saudade" onclick="aumentarSaudade()">Pensei em Você ❤️</button>
+            </section>
+        </main>
     </div>
 
     <script>
         const SENHA_ADMIN = "2008";
         let isAdmin = false;
 
+        // VERIFICA SE JÁ ESTAVA LOGADO ANTES
+        window.onload = function() {
+            const loginSalvo = localStorage.getItem("statusLogin");
+            if (loginSalvo === "casalLogado") {
+                isAdmin = true;
+                liberarSite("Modo Casal ❤️ (Lembrado)");
+            }
+        };
+
         function fazerLogin(tipo) {
             if (tipo === 'casal') {
                 const senha = document.getElementById('senhaInput').value;
                 if (senha === SENHA_ADMIN) {
                     isAdmin = true;
+                    localStorage.setItem("statusLogin", "casalLogado");
                     liberarSite("Modo Casal ❤️");
                 } else { alert("Senha incorreta!"); return; }
             } else {
                 isAdmin = false;
                 liberarSite("Modo Visitante");
             }
-            document.getElementById('tela-login').style.display = 'none';
-            document.getElementById('conteudo-site').style.display = 'block';
         }
 
         function liberarSite(msg) {
+            document.getElementById('tela-login').style.display = 'none';
+            document.getElementById('conteudo-site').style.display = 'block';
             document.getElementById('modo-txt').innerText = msg;
             if (isAdmin) {
                 document.querySelectorAll('.btn-interativo').forEach(b => b.classList.add('admin-on'));
                 document.getElementById('input-mural').disabled = false;
                 document.getElementById('input-mural').placeholder = "Escreva algo fofo...";
+            }
+        }
+
+        function postarRecado() {
+            if(!isAdmin) return;
+            const input = document.getElementById('input-mural');
+            if(input.value.trim() !== "") {
+                document.getElementById('mural').innerText = `"${input.value}"`;
+                input.value = "";
             }
         }
 
@@ -211,15 +229,6 @@
             document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
             document.getElementById('btn-' + tabId).classList.add('active');
-        }
-
-        function postarRecado() {
-            if(!isAdmin) return;
-            const input = document.getElementById('input-mural');
-            if(input.value.trim() !== "") {
-                document.getElementById('mural').innerText = `"${input.value}"`;
-                input.value = "";
-            }
         }
 
         function atualizarTimer() {
