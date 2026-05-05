@@ -4,12 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KAUAN & MARIA ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Syne:wght@700&family=Azeret+Mono:wght@400&display=swap" rel="stylesheet">
+    <link href="https://googleapis.com" rel="stylesheet">
     <style>
         :root {
             --neon-red: #ff4d6d;
             --neon-green: #39ff14;
-            --neon-blue: #00f2ff;
             --bg-dark: #0a0104;
             --font-destaque: 'Syne', sans-serif;
             --font-corpo: 'Inter', sans-serif;
@@ -26,22 +25,36 @@
             overflow-x: hidden;
         }
 
-        /* TELA DE ENTRADA */
+        /* --- TELA DE SENHA (SÓ APARECE SE NÃO ESTIVER LOGADO) --- */
         #loader {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: #000;
             z-index: 10000;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
+            gap: 15px;
+        }
+
+        .input-senha {
+            padding: 15px;
+            border-radius: 12px;
+            border: 2px solid var(--neon-red);
+            background: #111;
+            color: white;
+            text-align: center;
+            font-family: var(--font-digital);
+            outline: none;
+            width: 180px;
         }
 
         #start-btn {
             background: var(--neon-red);
             border: none;
             color: #fff;
-            padding: 22px 50px;
+            padding: 15px 40px;
             font-family: var(--font-destaque);
             border-radius: 50px;
             text-transform: uppercase;
@@ -59,7 +72,7 @@
             backdrop-filter: blur(15px);
             padding: 10px 15px;
             border-radius: 30px;
-            display: none;
+            display: none; /* Só aparece após a senha */
             z-index: 1000;
             border: 1px solid rgba(255, 255, 255, 0.1);
             width: 90%;
@@ -67,327 +80,158 @@
             justify-content: space-between;
         }
 
-        nav button {
-            background: none;
-            border: none;
-            color: #aaa;
-            font-family: var(--font-destaque);
-            font-size: 0.65rem;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
+        nav button { background: none; border: none; color: #aaa; font-family: var(--font-destaque); font-size: 0.65rem; cursor: pointer; }
         nav button.active { color: var(--neon-red); transform: scale(1.1); }
 
         /* SEÇÕES */
-        .tab-content {
-            display: none;
-            padding: 20px;
-            animation: fadeIn 0.5s ease;
-            max-width: 500px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
+        .tab-content { display: none; padding: 20px; animation: fadeIn 0.5s ease; max-width: 500px; margin: 0 auto; text-align: center; }
         .tab-content.active { display: block; }
-
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
 
-        .card {
-            border: 2px solid rgba(255, 77, 109, 0.2);
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
+        .card { border: 2px solid rgba(255, 77, 109, 0.2); background: rgba(255, 255, 255, 0.03); border-radius: 20px; padding: 20px; margin-bottom: 20px; }
 
-        /* ABA "PARA VOCÊ" - CANVAS ANIMADO */
-        .heart-canvas-container {
-            background: #000;
-            width: 100%;
-            height: 450px;
-            border-radius: 20px;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid #1a0005;
-        }
+        /* CORAÇÃO ANIMADO DENTRO DO CARD */
+        @keyframes fluxo { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
+        @keyframes bater { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 
-        #heartCanvas { width: 100%; height: 100%; }
-
-        .overlay-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            pointer-events: none;
-            z-index: 10;
-        }
-
-        .overlay-text h2 {
+        .coracao-txt {
+            background: linear-gradient(90deg, var(--neon-red), #fff, var(--neon-red));
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            white-space: pre;
             font-family: var(--font-digital);
-            font-size: 1.8rem;
-            color: #fff;
-            text-shadow: 0 0 20px var(--neon-red);
-            margin: 0;
-        }
-
-        .overlay-text p {
-            font-family: var(--font-digital);
-            font-size: 0.8rem;
-            color: #ffb3c1;
-            letter-spacing: 2px;
+            font-size: 8px;
+            line-height: 1.1;
+            display: inline-block;
+            animation: fluxo 3s linear infinite, bater 1.5s ease-in-out infinite;
         }
 
         /* FOTOS E TIMER */
-        .photo-container {
-            width: 160px; height: 160px; margin: 0 auto 15px; border-radius: 50%;
-            border: 4px solid var(--neon-red); overflow: hidden; box-shadow: 0 0 30px rgba(255, 77, 109, 0.3);
-        }
+        .photo-container { width: 160px; height: 160px; margin: 0 auto 15px; border-radius: 50%; border: 4px solid var(--neon-red); overflow: hidden; }
         .photo-container img { width: 100%; height: 100%; object-fit: cover; }
-
         .timer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
         .timer-box { background: rgba(255, 255, 255, 0.05); padding: 10px 5px; border-radius: 12px; }
         .timer-val { font-family: var(--font-destaque); color: var(--neon-green); font-size: 1rem; display: block; }
-
         .galeria-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .galeria-item { width: 100%; height: 140px; border-radius: 15px; background: #222; overflow: hidden; border: 1px solid var(--neon-red); }
+        .galeria-item { width: 100%; height: 140px; border-radius: 15px; overflow: hidden; border: 1px solid var(--neon-red); }
         .galeria-item img { width: 100%; height: 100%; object-fit: cover; }
-
-        /* BOTÕES INTERATIVOS */
-        .btn-interativo {
-            background: var(--neon-red); border: none; padding: 12px; color: white;
-            border-radius: 12px; cursor: pointer; font-family: var(--font-destaque);
-            width: 100%; margin-top: 10px; text-transform: uppercase; font-size: 0.8rem;
-        }
-
-        .input-style {
-            width: 100%; padding: 12px; border-radius: 10px; border: 1px solid rgba(255, 77, 109, 0.5);
-            background: rgba(0,0,0,0.3); color: white; box-sizing: border-box; margin-top: 10px;
-        }
-
-        .heart { position: fixed; top: -20px; color: var(--neon-red); z-index: 5; animation: fall linear forwards; pointer-events: none; }
-        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
     </style>
 </head>
 <body>
 
+    <!-- TELA DE LOGIN (2008) -->
     <div id="loader">
-        <button id="start-btn" onclick="entrar()">Acessar Sistema</button>
+        <h2 style="color:var(--neon-red); font-family: var(--font-destaque); letter-spacing: 2px;">SISTEMA PRIVADO</h2>
+        <input type="password" id="passInput" class="input-senha" placeholder="SENHA">
+        <button id="start-btn" onclick="verificarAcesso()">ACESSAR</button>
     </div>
 
-    <nav id="main-nav">
-        <button onclick="showTab('inicio')" id="btn-inicio" class="active">INÍCIO</button>
-        <button onclick="showTab('declaracao')" id="btn-declaracao">PARA VOCÊ</button>
-        <button onclick="showTab('fotos')" id="btn-fotos">FOTOS</button>
-        <button onclick="showTab('interacoes')" id="btn-interacoes">INTERAÇÕES</button>
-    </nav>
+    <!-- CONTEÚDO QUE FICA ESCONDIDO -->
+    <div id="site-conteudo" style="display: none;">
+        
+        <nav id="main-nav" style="display: flex;">
+            <button onclick="showTab('inicio')" id="btn-inicio" class="active">INÍCIO</button>
+            <button onclick="showTab('declaracao')" id="btn-declaracao">PARA VOCÊ</button>
+            <button onclick="showTab('fotos')" id="btn-fotos">FOTOS</button>
+        </nav>
 
-    <main id="inicio" class="tab-content active">
-        <section class="card">
-            <div class="photo-container">
-                <img src="amor.jpeg.jpeg" alt="FOTO PRINCIPAL">
+        <main id="inicio" class="tab-content active">
+            <section class="card">
+                <div class="photo-container"><img src="amor.jpeg.jpeg"></div>
+                <h1 style="font-family: var(--font-destaque);">MARIA</h1>
+                <p style="color: var(--neon-red); font-weight: bold;">NAMORADA PERFEITA</p>
+            </section>
+            <section class="card">
+                <p style="font-family: var(--font-destaque); font-size: 0.7rem;">CONTANDO CADA SEGUNDO</p>
+                <div class="timer-grid">
+                    <div class="timer-box"><span class="timer-val" id="d">00</span><small>DIAS</small></div>
+                    <div class="timer-box"><span class="timer-val" id="h">00</span><small>HRS</small></div>
+                    <div class="timer-box"><span class="timer-val" id="m">00</span><small>MIN</small></div>
+                    <div class="timer-box"><span class="timer-val" id="s">00</span><small>SEG</small></div>
+                </div>
+            </section>
+        </main>
+
+        <main id="declaracao" class="tab-content">
+            <div class="card" style="background: #000; padding: 40px 10px;">
+                <div class="coracao-txt">
+          I love youI love you         I love youI love you
+       I love youI love youI love    I love youI love youI love
+     I love youI love youI love youI love youI love youI love youI
+    I love youI love youI love youI love youI love youI love youI lov
+    I love youI love youI love youI love youI love youI love youI lov
+    I love youI love youI love youI love youI love youI love youI lov
+     I love youI love youI love youI love youI love youI love youI
+      I love youI love youI love youI love youI love youI love y
+       I love youI love youI love youI love youI love youI lov
+         I love youI love youI love youI love youI love you
+           I love youI love youI love youI love youI lov
+             I love youI love youI love youI love you
+               I love youI love youI love youI lo
+                 I love youI love youI love y
+                   I love youI love youI l
+                     I love youI love y
+                       I love youI l
+                         I love y
+                           I l
+                            v
+                </div>
+                <h2 style="font-family: var(--font-digital); margin-top: 20px; color: #fff;">I love you 🤍</h2>
+                <p style="color: var(--neon-red); font-size: 0.8rem;">my heart keeps choosing you</p>
             </div>
-            <h1 style="font-family: var(--font-destaque);">MARIA</h1>
-            <p style="color: var(--neon-red); font-weight: bold;">NAMORADA PERFEITA</p>
-        </section>
+        </main>
 
-        <section class="card">
-            <p style="font-family: var(--font-destaque); font-size: 0.7rem;">CONTANDO CADA SEGUNDO</p>
-            <div class="timer-grid">
-                <div class="timer-box"><span class="timer-val" id="d">00</span><small>DIAS</small></div>
-                <div class="timer-box"><span class="timer-val" id="h">00</span><small>HRS</small></div>
-                <div class="timer-box"><span class="timer-val" id="m">00</span><small>MIN</small></div>
-                <div class="timer-box"><span class="timer-val" id="s">00</span><small>SEG</small></div>
+        <main id="fotos" class="tab-content">
+            <div class="galeria-grid">
+                <div class="galeria-item"><img src="amor.jpeg.jpeg"></div>
+                <div class="galeria-item"><img src="amor1.jpeg.jpeg"></div>
+                <div class="galeria-item"><img src="Amor1.jpeg.jpeg"></div>
+                <div class="galeria-item"><img src="amor3.jpeg.jpeg"></div>
+                <div class="galeria-item"><img src="amor4.jpeg.jpeg"></div>
             </div>
-        </section>
-    </main>
-
-    <main id="declaracao" class="tab-content">
-        <div class="heart-canvas-container">
-            <canvas id="heartCanvas"></canvas>
-            <div class="overlay-text">
-                <h2>I love you 🤍</h2>
-                <p>my heart keeps choosing you</p>
-            </div>
-        </div>
-    </main>
-
-    <main id="fotos" class="tab-content">
-        <h2 style="font-family: var(--font-destaque);">NOSSA GALERIA</h2>
-        <div class="galeria-grid">
-            <div class="galeria-item"><img src="amor.jpeg.jpeg"></div>
-            <div class="galeria-item"><img src="amor1.jpeg.jpeg"></div>
-            <div class="galeria-item"><img src="Amor1.jpeg.jpeg"></div>
-            <div class="galeria-item"><img src="amor3.jpeg.jpeg"></div>
-            <div class="galeria-item"><img src="amor4.jpeg.jpeg"></div>
-        </div>
-    </main>
-
-    <main id="interacoes" class="tab-content">
-        <h2 style="font-family: var(--font-destaque);">PLAYGROUND ❤️</h2>
-
-        <div class="card">
-            <h3 style="font-size: 0.7rem; text-transform: uppercase;">Aviso Imediato</h3>
-            <button class="btn-interativo" onclick="chuvaCores()" style="background: var(--neon-blue); color: #000;">Tô pensando em você! ⚡</button>
-        </div>
-
-        <div class="card">
-            <h3 style="font-size: 0.7rem; text-transform: uppercase;">Mural de Recados</h3>
-            <span id="mural-texto" style="font-style: italic; color: var(--neon-blue); display: block; margin-bottom: 10px;">"Nenhum recado ainda..."</span>
-            <input type="text" id="input-mural" class="input-style" placeholder="Deixe um recado...">
-            <button class="btn-interativo" onclick="atualizarMural()">Fixar Recado 📌</button>
-        </div>
-
-        <div class="card">
-            <h3 style="font-size: 0.7rem; text-transform: uppercase;">Saudômetro</h3>
-            <span id="sdd-count" style="font-size: 2.5rem; color: var(--neon-red); font-family: var(--font-destaque); display: block;">0</span>
-            <button class="btn-interativo" onclick="matarSaudade()">Estou com saudade ❤️</button>
-        </div>
-
-        <div class="card" id="capsula-container">
-            <h3 style="font-size: 0.7rem; text-transform: uppercase;">Cápsula do Tempo ⏳</h3>
-            <div id="capsula-form">
-                <textarea id="texto-capsula" class="input-style" rows="3" placeholder="Mensagem para o futuro..."></textarea>
-                <button class="btn-interativo" onclick="selarCapsula()" style="background: #fff; color: #000;">Selar Cápsula</button>
-            </div>
-            <div id="capsula-status" style="display:none;">
-                <p id="countdown-capsula" style="color: var(--neon-red); font-weight: bold;"></p>
-            </div>
-        </div>
-    </main>
+        </main>
+    </div>
 
     <script>
-        // CONFIGURAÇÕES GERAIS
-        function entrar() {
+        // --- LOGICA DA SENHA ---
+        const senhaCorreta = "2008";
+
+        window.onload = function() {
+            if (localStorage.getItem("autenticado") === "true") {
+                liberar();
+            }
+        };
+
+        function verificarAcesso() {
+            const digitado = document.getElementById('passInput').value;
+            if (digitado === senhaCorreta) {
+                localStorage.setItem("autenticado", "true");
+                liberar();
+            } else {
+                alert("Senha Incorreta!");
+                document.getElementById('passInput').value = "";
+            }
+        }
+
+        function liberar() {
             document.getElementById('loader').style.display = 'none';
-            document.getElementById('main-nav').style.display = 'flex';
-            carregarAnimacao();
-            carregarTudo();
-            setInterval(createHeart, 800);
+            document.getElementById('site-conteudo').style.display = 'block';
+            // Aqui você deve manter sua função de Timer original se tiver uma
         }
 
-        function showTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            document.getElementById('btn-' + tabId).classList.add('active');
+        // --- NAVEGAÇÃO ---
+        function showTab(id) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            document.getElementById('btn-'+id).classList.add('active');
         }
 
-        // TIMER
-        const dataInicio = new Date(2025, 10, 15, 20, 30); 
-        setInterval(() => {
-            const diff = new Date() - dataInicio;
-            document.getElementById('d').innerText = Math.floor(diff / 86400000);
-            document.getElementById('h').innerText = Math.floor((diff / 3600000) % 24).toString().padStart(2, '0');
-            document.getElementById('m').innerText = Math.floor((diff / 60000) % 60).toString().padStart(2, '0');
-            document.getElementById('s').innerText = Math.floor((diff / 1000) % 60).toString().padStart(2, '0');
-        }, 1000);
-
-        // --- ANIMAÇÃO DE MATRIZ DE AMOR (CANVAS) ---
-        const canvas = document.getElementById('heartCanvas');
-        const ctx = canvas.getContext('2d');
-        let words = [];
-        const phrase = "I LOVE YOU";
-
-        class Word {
-            constructor() { this.reset(); }
-            reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 12 + 6;
-                this.speedX = (Math.random() - 0.5) * 1.2;
-                this.speedY = (Math.random() - 0.5) * 1.2;
-                this.opacity = Math.random() * 0.6 + 0.2;
-                this.grow = Math.random() > 0.5 ? 0.05 : -0.05;
-            }
-            update() {
-                this.x += this.speedX; this.y += this.speedY;
-                this.size += this.grow;
-                if (this.size > 20 || this.size < 6) this.grow *= -1;
-                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-            }
-            draw() {
-                ctx.font = `bold ${this.size}px 'Azeret Mono'`;
-                ctx.fillStyle = `rgba(255, 77, 109, ${this.opacity})`;
-                ctx.shadowBlur = 10; ctx.shadowColor = "#ff4d6d";
-                ctx.fillText(phrase, this.x, this.y);
-            }
-        }
-
-        function carregarAnimacao() {
-            canvas.width = canvas.offsetWidth;
-            canvas.height = canvas.offsetHeight;
-            words = [];
-            for (let i = 0; i < 70; i++) words.push(new Word());
-            animate();
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            words.forEach(w => { w.update(); w.draw(); });
-            requestAnimationFrame(animate);
-        }
-
-        // --- INTERAÇÕES ---
-        function chuvaCores() { for(let i=0; i<30; i++) setTimeout(createHeart, i*60); }
-
-        function createHeart() {
-            const h = document.createElement('div');
-            h.classList.add('heart'); h.innerHTML = '❤️';
-            h.style.left = Math.random() * 100 + 'vw';
-            const dur = Math.random() * 3 + 3;
-            h.style.animationDuration = dur + 's';
-            document.body.appendChild(h);
-            setTimeout(() => h.remove(), dur * 1000);
-        }
-
-        function atualizarMural() {
-            const txt = document.getElementById('input-mural').value;
-            if(!txt) return;
-            localStorage.setItem('mural_msg', txt);
-            document.getElementById('mural-texto').innerText = `"${txt}"`;
-            document.getElementById('input-mural').value = "";
-        }
-
-        let sdds = localStorage.getItem('sdd_val') || 0;
-        function matarSaudade() {
-            sdds++; localStorage.setItem('sdd_val', sdds);
-            document.getElementById('sdd-count').innerText = sdds;
-            createHeart();
-        }
-
-        function selarCapsula() {
-            const txt = document.getElementById('texto-capsula').value;
-            if(txt.trim().length < 5) return;
-            localStorage.setItem('cap_txt', txt);
-            localStorage.setItem('cap_date', new Date().getTime());
-            verificarCapsula();
-        }
-
-        function verificarCapsula() {
-            const data = localStorage.getItem('cap_date');
-            if(data) {
-                document.getElementById('capsula-form').style.display = 'none';
-                document.getElementById('capsula-status').style.display = 'block';
-                const lib = new Date(parseInt(data)); lib.setFullYear(lib.getFullYear() + 1);
-                setInterval(() => {
-                    const dist = lib - new Date();
-                    if(dist < 0) {
-                        document.getElementById('capsula-status').innerHTML = `🔓 Aberta: "${localStorage.getItem('cap_txt')}"`;
-                    } else {
-                        document.getElementById('countdown-capsula').innerText = `Abre em: ${Math.floor(dist/86400000)} dias`;
-                    }
-                }, 1000);
-            }
-        }
-
-        function carregarTudo() {
-            document.getElementById('sdd-count').innerText = sdds;
-            if(localStorage.getItem('mural_msg')) document.getElementById('mural-texto').innerText = `"${localStorage.getItem('mural_msg')}"`;
-            verificarCapsula();
-        }
+        // Enter no teclado
+        document.getElementById('passInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') verificarAcesso();
+        });
     </script>
 </body>
 </html>
