@@ -75,7 +75,6 @@
             font-size: 0.65rem;
             cursor: pointer;
             transition: 0.3s;
-            padding: 10px 5px;
         }
 
         nav button.active { color: var(--neon-red); transform: scale(1.1); }
@@ -92,7 +91,7 @@
 
         .tab-content.active { display: block; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
 
         .card {
             border: 2px solid rgba(255, 77, 109, 0.2);
@@ -102,69 +101,45 @@
             margin-bottom: 20px;
         }
 
-        /* ESTILO DA ABA DE DECLARAÇÃO (FOTO) */
-        .heart-ascii-container {
+        /* ABA "PARA VOCÊ" - CANVAS ANIMADO */
+        .heart-canvas-container {
             background: #000;
-            padding: 40px 10px;
-            border-radius: 15px;
-            border: 1px solid #1a0005;
+            width: 100%;
+            height: 450px;
+            border-radius: 20px;
             position: relative;
             overflow: hidden;
+            border: 1px solid #1a0005;
         }
 
-        .ascii-text {
-            font-family: var(--font-digital);
-            font-size: 6px;
-            line-height: 6px;
-            color: var(--neon-red);
-            text-shadow: 0 0 5px var(--neon-red);
-            white-space: pre;
-            display: inline-block;
-            animation: pulse-glow 2s infinite alternate;
-        }
+        #heartCanvas { width: 100%; height: 100%; }
 
-        @keyframes pulse-glow {
-            from { text-shadow: 0 0 2px var(--neon-red); opacity: 0.8; }
-            to { text-shadow: 0 0 12px var(--neon-red); opacity: 1; }
-        }
-
-        .floating-message {
+        .overlay-text {
             position: absolute;
-            top: 45%;
+            top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 100%;
+            text-align: center;
             pointer-events: none;
+            z-index: 10;
         }
 
-        .floating-message h2 {
-            font-size: 2.2rem;
-            margin: 0;
+        .overlay-text h2 {
             font-family: var(--font-digital);
+            font-size: 1.8rem;
             color: #fff;
-            text-shadow: 0 0 20px rgba(255,255,255,0.8);
+            text-shadow: 0 0 20px var(--neon-red);
+            margin: 0;
         }
 
-        .floating-message p {
+        .overlay-text p {
             font-family: var(--font-digital);
             font-size: 0.8rem;
-            margin-top: 5px;
-            letter-spacing: 1px;
             color: #ffb3c1;
+            letter-spacing: 2px;
         }
 
-        /* OUTROS ESTILOS */
-        .btn-interativo {
-            background: var(--neon-red); border: none; padding: 12px; color: white;
-            border-radius: 12px; cursor: pointer; font-family: var(--font-destaque);
-            width: 100%; margin-top: 10px; text-transform: uppercase; font-size: 0.8rem;
-        }
-
-        .input-style {
-            width: 100%; padding: 12px; border-radius: 10px; border: 1px solid rgba(255, 77, 109, 0.5);
-            background: rgba(0,0,0,0.3); color: white; box-sizing: border-box; margin-top: 10px;
-        }
-
+        /* FOTOS E TIMER */
         .photo-container {
             width: 160px; height: 160px; margin: 0 auto 15px; border-radius: 50%;
             border: 4px solid var(--neon-red); overflow: hidden; box-shadow: 0 0 30px rgba(255, 77, 109, 0.3);
@@ -178,6 +153,18 @@
         .galeria-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .galeria-item { width: 100%; height: 140px; border-radius: 15px; background: #222; overflow: hidden; border: 1px solid var(--neon-red); }
         .galeria-item img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* BOTÕES INTERATIVOS */
+        .btn-interativo {
+            background: var(--neon-red); border: none; padding: 12px; color: white;
+            border-radius: 12px; cursor: pointer; font-family: var(--font-destaque);
+            width: 100%; margin-top: 10px; text-transform: uppercase; font-size: 0.8rem;
+        }
+
+        .input-style {
+            width: 100%; padding: 12px; border-radius: 10px; border: 1px solid rgba(255, 77, 109, 0.5);
+            background: rgba(0,0,0,0.3); color: white; box-sizing: border-box; margin-top: 10px;
+        }
 
         .heart { position: fixed; top: -20px; color: var(--neon-red); z-index: 5; animation: fall linear forwards; pointer-events: none; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
@@ -201,31 +188,29 @@
             <div class="photo-container">
                 <img src="amor.jpeg.jpeg" alt="FOTO PRINCIPAL">
             </div>
-            <h1 style="font-family: var(--font-destaque); margin-bottom: 5px;">MARIA</h1>
-            <p style="color: var(--neon-red); font-weight: bold; margin-top: 0;">NAMORADA PERFEITA</p>
+            <h1 style="font-family: var(--font-destaque);">MARIA</h1>
+            <p style="color: var(--neon-red); font-weight: bold;">NAMORADA PERFEITA</p>
         </section>
 
         <section class="card">
-            <p style="font-family: var(--font-destaque); font-size: 0.7rem; letter-spacing: 2px;">CONTANDO CADA SEGUNDO</p>
+            <p style="font-family: var(--font-destaque); font-size: 0.7rem;">CONTANDO CADA SEGUNDO</p>
             <div class="timer-grid">
-                <div class="timer-box"><span class="timer-val" id="d">00</span><span style="font-size:0.5rem">DIAS</span></div>
-                <div class="timer-box"><span class="timer-val" id="h">00</span><span style="font-size:0.5rem">HRS</span></div>
-                <div class="timer-box"><span class="timer-val" id="m">00</span><span style="font-size:0.5rem">MIN</span></div>
-                <div class="timer-box"><span class="timer-val" id="s">00</span><span style="font-size:0.5rem">SEG</span></div>
+                <div class="timer-box"><span class="timer-val" id="d">00</span><small>DIAS</small></div>
+                <div class="timer-box"><span class="timer-val" id="h">00</span><small>HRS</small></div>
+                <div class="timer-box"><span class="timer-val" id="m">00</span><small>MIN</small></div>
+                <div class="timer-box"><span class="timer-val" id="s">00</span><small>SEG</small></div>
             </div>
         </section>
     </main>
 
     <main id="declaracao" class="tab-content">
-        <div class="heart-ascii-container">
-            <div class="ascii-text" id="ascii-heart">
-                </div>
-            <div class="floating-message">
-                <h2>I love you 🤍🤍</h2>
+        <div class="heart-canvas-container">
+            <canvas id="heartCanvas"></canvas>
+            <div class="overlay-text">
+                <h2>I love you 🤍</h2>
                 <p>my heart keeps choosing you</p>
             </div>
         </div>
-        <p style="margin-top: 20px; font-size: 0.8rem; opacity: 0.6; font-family: var(--font-digital);">K & M - Forever</p>
     </main>
 
     <main id="fotos" class="tab-content">
@@ -249,7 +234,7 @@
 
         <div class="card">
             <h3 style="font-size: 0.7rem; text-transform: uppercase;">Mural de Recados</h3>
-            <span id="mural-texto" style="font-style: italic; color: var(--neon-blue); display: block; margin: 10px 0;">"Nenhum recado ainda..."</span>
+            <span id="mural-texto" style="font-style: italic; color: var(--neon-blue); display: block; margin-bottom: 10px;">"Nenhum recado ainda..."</span>
             <input type="text" id="input-mural" class="input-style" placeholder="Deixe um recado...">
             <button class="btn-interativo" onclick="atualizarMural()">Fixar Recado 📌</button>
         </div>
@@ -273,11 +258,13 @@
     </main>
 
     <script>
+        // CONFIGURAÇÕES GERAIS
         function entrar() {
             document.getElementById('loader').style.display = 'none';
             document.getElementById('main-nav').style.display = 'flex';
-            gerarCoracaoASCII();
+            carregarAnimacao();
             carregarTudo();
+            setInterval(createHeart, 800);
         }
 
         function showTab(tabId) {
@@ -291,41 +278,59 @@
         const dataInicio = new Date(2025, 10, 15, 20, 30); 
         setInterval(() => {
             const diff = new Date() - dataInicio;
-            if(diff > 0) {
-                document.getElementById('d').innerText = Math.floor(diff / 86400000);
-                document.getElementById('h').innerText = Math.floor((diff / 3600000) % 24).toString().padStart(2, '0');
-                document.getElementById('m').innerText = Math.floor((diff / 60000) % 60).toString().padStart(2, '0');
-                document.getElementById('s').innerText = Math.floor((diff / 1000) % 60).toString().padStart(2, '0');
-            }
+            document.getElementById('d').innerText = Math.floor(diff / 86400000);
+            document.getElementById('h').innerText = Math.floor((diff / 3600000) % 24).toString().padStart(2, '0');
+            document.getElementById('m').innerText = Math.floor((diff / 60000) % 60).toString().padStart(2, '0');
+            document.getElementById('s').innerText = Math.floor((diff / 1000) % 60).toString().padStart(2, '0');
         }, 1000);
 
-        // CORAÇÃO ASCII (REPLICANDO A FOTO)
-        function gerarCoracaoASCII() {
-            const container = document.getElementById('ascii-heart');
-            const heartTemplate = [
-                "      I love you I love you           I love you I love you      ",
-                "   I love you I love you I love   I love you I love you I love   ",
-                " I love you I love you I love you I love you I love you I love you ",
-                "I love you I love you I love you I love you I love you I love you I",
-                "I love you I love you I love you I love you I love you I love you I",
-                " I love you I love you I love you I love you I love you I love you ",
-                "  I love you I love you I love you I love you I love you I love   ",
-                "    I love you I love you I love you I love you I love you I     ",
-                "      I love you I love you I love you I love you I love         ",
-                "        I love you I love you I love you I love you              ",
-                "          I love you I love you I love you I love                ",
-                "            I love you I love you I love you                    ",
-                "              I love you I love you I love                      ",
-                "                I love you I love you                           ",
-                "                  I love you I love                             ",
-                "                    I love you                                  ",
-                "                      I love                                    ",
-                "                        I                                       "
-            ];
-            container.innerHTML = heartTemplate.join('\n');
+        // --- ANIMAÇÃO DE MATRIZ DE AMOR (CANVAS) ---
+        const canvas = document.getElementById('heartCanvas');
+        const ctx = canvas.getContext('2d');
+        let words = [];
+        const phrase = "I LOVE YOU";
+
+        class Word {
+            constructor() { this.reset(); }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 12 + 6;
+                this.speedX = (Math.random() - 0.5) * 1.2;
+                this.speedY = (Math.random() - 0.5) * 1.2;
+                this.opacity = Math.random() * 0.6 + 0.2;
+                this.grow = Math.random() > 0.5 ? 0.05 : -0.05;
+            }
+            update() {
+                this.x += this.speedX; this.y += this.speedY;
+                this.size += this.grow;
+                if (this.size > 20 || this.size < 6) this.grow *= -1;
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            draw() {
+                ctx.font = `bold ${this.size}px 'Azeret Mono'`;
+                ctx.fillStyle = `rgba(255, 77, 109, ${this.opacity})`;
+                ctx.shadowBlur = 10; ctx.shadowColor = "#ff4d6d";
+                ctx.fillText(phrase, this.x, this.y);
+            }
         }
 
-        // INTERAÇÕES
+        function carregarAnimacao() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+            words = [];
+            for (let i = 0; i < 70; i++) words.push(new Word());
+            animate();
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            words.forEach(w => { w.update(); w.draw(); });
+            requestAnimationFrame(animate);
+        }
+
+        // --- INTERAÇÕES ---
         function chuvaCores() { for(let i=0; i<30; i++) setTimeout(createHeart, i*60); }
 
         function createHeart() {
@@ -355,7 +360,7 @@
 
         function selarCapsula() {
             const txt = document.getElementById('texto-capsula').value;
-            if(txt.trim().length < 5) return alert("Escreva um pouco mais!");
+            if(txt.trim().length < 5) return;
             localStorage.setItem('cap_txt', txt);
             localStorage.setItem('cap_date', new Date().getTime());
             verificarCapsula();
@@ -370,7 +375,7 @@
                 setInterval(() => {
                     const dist = lib - new Date();
                     if(dist < 0) {
-                        document.getElementById('capsula-status').innerHTML = `🔓 Liberado: "${localStorage.getItem('cap_txt')}"`;
+                        document.getElementById('capsula-status').innerHTML = `🔓 Aberta: "${localStorage.getItem('cap_txt')}"`;
                     } else {
                         document.getElementById('countdown-capsula').innerText = `Abre em: ${Math.floor(dist/86400000)} dias`;
                     }
