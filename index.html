@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KAUAN & MARIA ❤️</title>
-    <link href="https://googleapis.com" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Syne:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
             --neon-red: #ff4d6d;
             --neon-green: #39ff14;
+            --neon-blue: #00f2ff;
             --bg-dark: #0f0104;
             --font-destaque: 'Syne', sans-serif;
             --font-corpo: 'Inter', sans-serif;
@@ -19,19 +20,17 @@
             color: #fff;
             font-family: var(--font-corpo);
             margin: 0;
-            padding-bottom: 80px; /* Espaço para o menu inferior */
+            padding-bottom: 100px; 
             min-height: 100vh;
             overflow-x: hidden;
         }
 
-        /* TELA DE ENTRADA */
         #loader {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: #000;
             z-index: 10000;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
         }
@@ -42,15 +41,12 @@
             color: #fff;
             padding: 22px 50px;
             font-family: var(--font-destaque);
-            font-size: 1.1rem;
-            cursor: pointer;
-            box-shadow: 0 10px 30px rgba(255, 77, 109, 0.4);
             border-radius: 50px;
             text-transform: uppercase;
-            transition: 0.4s;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(255, 77, 109, 0.4);
         }
 
-        /* NAVEGAÇÃO POR ABAS */
         nav {
             position: fixed;
             bottom: 20px;
@@ -60,10 +56,10 @@
             backdrop-filter: blur(15px);
             padding: 10px 20px;
             border-radius: 30px;
-            display: none; /* Só aparece após o start */
+            display: none;
             z-index: 1000;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            width: 80%;
+            width: 85%;
             max-width: 400px;
             justify-content: space-around;
         }
@@ -75,15 +71,10 @@
             font-family: var(--font-destaque);
             font-size: 0.7rem;
             cursor: pointer;
-            transition: 0.3s;
         }
 
-        nav button.active {
-            color: var(--neon-red);
-            transform: scale(1.1);
-        }
+        nav button.active { color: var(--neon-red); transform: scale(1.1); }
 
-        /* SEÇÕES */
         .tab-content {
             display: none;
             padding: 20px;
@@ -95,54 +86,77 @@
 
         .tab-content.active { display: block; }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
 
-        /* ESTILOS DOS CARDS (REUTILIZADOS) */
         .card {
             border: 2px solid rgba(255, 77, 109, 0.2);
             background: rgba(255, 255, 255, 0.03);
             border-radius: 20px;
-            padding: 30px 20px;
-            margin-bottom: 25px;
-            position: relative;
+            padding: 20px;
+            margin-bottom: 20px;
         }
 
-        .photo-container {
-            width: 200px; height: 200px;
-            margin: 0 auto 15px;
-            border-radius: 50%;
-            border: 4px solid var(--neon-red);
-            overflow: hidden;
-            box-shadow: 0 0 30px rgba(255, 77, 109, 0.3);
-        }
-
-        .photo-container img { width: 100%; height: 100%; object-fit: cover; }
-
-        .timer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-        .timer-box { background: rgba(255, 255, 255, 0.05); padding: 15px 5px; border-radius: 12px; }
-        .timer-val { font-family: var(--font-destaque); color: var(--neon-green); font-size: 1.2rem; display: block; }
-
-        /* GALERIA */
-        .galeria-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-        .galeria-item {
+        .btn-interativo {
+            background: var(--neon-red);
+            border: none;
+            padding: 12px;
+            color: white;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: var(--font-destaque);
             width: 100%;
-            height: 150px;
-            border-radius: 15px;
-            background: #222;
-            overflow: hidden;
-            border: 1px solid var(--neon-red);
+            margin-top: 10px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
         }
-        .galeria-item img { width: 100%; height: 100%; object-fit: cover; }
 
-        .heart { position: fixed; top: -20px; color: var(--neon-red); z-index: 5; animation: fall linear forwards; }
+        .input-style {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 77, 109, 0.5);
+            background: rgba(0,0,0,0.3);
+            color: white;
+            box-sizing: border-box;
+            margin-top: 10px;
+        }
+
+        .contador-sdd {
+            font-size: 2.5rem;
+            color: var(--neon-red);
+            font-family: var(--font-destaque);
+            display: block;
+            text-shadow: 0 0 15px rgba(255, 77, 109, 0.5);
+        }
+
+        /* ESTILO DOS HUMORES */
+        .mood-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .mood-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: 0.3s;
+        }
+        .mood-btn:hover { background: var(--neon-red); }
+
+        .heart { position: fixed; top: -20px; color: var(--neon-red); z-index: 5; animation: fall linear forwards; pointer-events: none; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+
+        /* MURAL */
+        #mural-texto {
+            font-style: italic;
+            color: var(--neon-blue);
+            margin: 10px 0;
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -151,107 +165,165 @@
         <button id="start-btn" onclick="entrar()">Acessar Sistema</button>
     </div>
 
-    <!-- MENU INFERIOR -->
     <nav id="main-nav">
         <button onclick="showTab('inicio')" id="btn-inicio" class="active">INÍCIO</button>
         <button onclick="showTab('fotos')" id="btn-fotos">FOTOS</button>
         <button onclick="showTab('interacoes')" id="btn-interacoes">INTERAÇÕES</button>
     </nav>
 
-    <!-- ABA 1: INÍCIO -->
     <main id="inicio" class="tab-content active">
         <section class="card">
-            <div class="photo-container">
-                <img src="amor.jpeg.jpeg" alt="FOTO PRINCIPAL">
-            </div>
-            <h1 style="font-family: var(--font-destaque);">MARIA</h1>
-            <p style="color: var(--neon-red); font-weight: bold;">NAMORADA PERFEITA</p>
-        </section>
-
-        <section class="card">
-            <p style="font-family: var(--font-destaque); font-size: 0.8rem;">TEMPO JUNTOS</p>
-            <div class="timer-grid">
-                <div class="timer-box"><span class="timer-val" id="d">00</span><span style="font-size:0.5rem">DIAS</span></div>
-                <div class="timer-box"><span class="timer-val" id="h">00</span><span style="font-size:0.5rem">HRS</span></div>
-                <div class="timer-box"><span class="timer-val" id="m">00</span><span style="font-size:0.5rem">MIN</span></div>
-                <div class="timer-box"><span class="timer-val" id="s">00</span><span style="font-size:0.5rem">SEG</span></div>
+            <h1 style="font-family: var(--font-destaque);">KAUAN & MARIA</h1>
+            <p style="color: var(--neon-red); font-weight: bold;">JUNTOS HÁ</p>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
+                <div class="card" style="padding: 10px; margin: 0;"><span id="d" style="color: var(--neon-green);">00</span><br><small>DIAS</small></div>
+                <div class="card" style="padding: 10px; margin: 0;"><span id="h" style="color: var(--neon-green);">00</span><br><small>HRS</small></div>
+                <div class="card" style="padding: 10px; margin: 0;"><span id="m" style="color: var(--neon-green);">00</span><br><small>MIN</small></div>
+                <div class="card" style="padding: 10px; margin: 0;"><span id="s" style="color: var(--neon-green);">00</span><br><small>SEG</small></div>
             </div>
         </section>
     </main>
 
-    <!-- ABA 2: FOTOS -->
     <main id="fotos" class="tab-content">
-        <h2 style="font-family: var(--font-destaque);">NOSSA GALERIA</h2>
-        <div class="galeria-grid">
-            <!-- Adicione suas fotos aqui -->
-            <div class="galeria-item"><img src="amor.jpeg.jpeg"></div>
-            <div class="galeria-item"><img src="amor1.jpeg.jpeg" alt="Foto 2"></div>
-             <div class="galeria-item"><img src="Amor1.jpeg.jpeg" alt="Foto 2"></div>
-            <div class="galeria-item"><img src="amor3.jpeg.jpeg" alt="Foto 4"></div>
-            <div class="galeria-item"><img src="amor4.jpeg.jpeg" alt="Foto 4"></div>
-        </div>
+        <h2 style="font-family: var(--font-destaque);">MEMÓRIAS</h2>
+        <p>Espaço reservado para suas fotos!</p>
     </main>
 
-    <!-- ABA 3: INTERAÇÕES -->
     <main id="interacoes" class="tab-content">
-        <h2 style="font-family: var(--font-destaque);">INTERAÇÕES</h2>
+        <h2 style="font-family: var(--font-destaque);">PLAYGROUND ❤️</h2>
+
         <div class="card">
-            <p>"Você é a pessoa mais especial do mundo."</p>
-            <button onclick="alert('Te amo infinito!')" style="background: var(--neon-red); border:none; padding: 10px; color: white; border-radius: 10px; cursor: pointer;">Clique para um Beijo</button>
+            <h3 style="font-size: 0.7rem; text-transform: uppercase;">Aviso Imediato</h3>
+            <button class="btn-interativo" onclick="chuvaCidadao()" style="background: var(--neon-blue); color: #000;">Tô pensando em você agora! ⚡</button>
         </div>
+
         <div class="card">
-            <p>Meta do dia:</p>
-            <p style="color: var(--neon-green)">[X] Te fazer sorrir</p>
+            <h3 style="font-size: 0.7rem; text-transform: uppercase;">Mural de Recados</h3>
+            <span id="mural-texto">"Nenhum recado ainda..."</span>
+            <input type="text" id="input-mural" class="input-style" placeholder="Deixe um recado rápido...">
+            <button class="btn-interativo" onclick="atualizarMural()">Colar Recado 📌</button>
+        </div>
+
+        <div class="card">
+            <h3 style="font-size: 0.7rem; text-transform: uppercase;">Como eu tô hoje?</h3>
+            <div class="mood-grid">
+                <button class="mood-btn" onclick="setMood('Feliz! 😍')">😍</button>
+                <button class="mood-btn" onclick="setMood('Com sono... 😴')">😴</button>
+                <button class="mood-btn" onclick="setMood('Carente 🥺')">🥺</button>
+                <button class="mood-btn" onclick="setMood('Estressado(a) 😤')">😤</button>
+                <button class="mood-btn" onclick="setMood('Te amando muito! ❤️')">❤️</button>
+                <button class="mood-btn" onclick="setMood('Com fome 🍕')">🍕</button>
+            </div>
+            <p id="current-mood" style="margin-top: 10px; font-size: 0.8rem; color: var(--neon-green);"></p>
+        </div>
+
+        <div class="card">
+            <h3 style="font-size: 0.7rem; text-transform: uppercase;">Saudômetro</h3>
+            <span class="contador-sdd" id="sdd-count">0</span>
+            <button class="btn-interativo" onclick="matarSaudade()">Aumentar Saudade +1</button>
+        </div>
+
+        <div class="card" id="capsula-container">
+            <h3 style="font-size: 0.7rem; text-transform: uppercase;">Cápsula do Tempo ⏳</h3>
+            <div id="capsula-form">
+                <textarea id="texto-capsula" class="input-style" rows="3" placeholder="Escreva algo para lerem em 1 ano..."></textarea>
+                <button class="btn-interativo" onclick="selarCapsula()" style="background: #fff; color: #000;">Selar Cápsula</button>
+            </div>
+            <div id="capsula-status" style="display:none;">
+                <p id="countdown-capsula" style="color: var(--neon-red);"></p>
+            </div>
         </div>
     </main>
-
-    <div id="music-player"></div>
 
     <script>
         function entrar() {
             document.getElementById('loader').style.display = 'none';
             document.getElementById('main-nav').style.display = 'flex';
-            
-            const player = document.getElementById('music-player');
-            player.innerHTML = `<iframe src="https://youtube-nocookie.com" style="display:none;" allow="autoplay"></iframe>`;
-
-            setInterval(createHeart, 500);
+            carregarDados();
         }
 
         function showTab(tabId) {
-            // Esconde todas as abas
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            // Desativa todos os botões
             document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active'));
-            
-            // Mostra a aba clicada e ativa o botão
             document.getElementById(tabId).classList.add('active');
             document.getElementById('btn-' + tabId).classList.add('active');
         }
 
-        // Timer (mesma lógica anterior)
+        // TIMER
         const dataInicio = new Date(2025, 10, 15, 20, 30); 
-        function atualizar() {
-            const agora = new Date();
-            const diff = agora - dataInicio;
-            if(diff > 0) {
-                document.getElementById('d').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
-                document.getElementById('h').innerText = Math.floor((diff / (1000 * 60 * 60)) % 24).toString().padStart(2, '0');
-                document.getElementById('m').innerText = Math.floor((diff / (1000 * 60)) % 60).toString().padStart(2, '0');
-                document.getElementById('s').innerText = Math.floor((diff / 1000) % 60).toString().padStart(2, '0');
-            }
+        setInterval(() => {
+            const diff = new Date() - dataInicio;
+            document.getElementById('d').innerText = Math.floor(diff / 86400000);
+            document.getElementById('h').innerText = Math.floor((diff / 3600000) % 24).toString().padStart(2, '0');
+            document.getElementById('m').innerText = Math.floor((diff / 60000) % 60).toString().padStart(2, '0');
+            document.getElementById('s').innerText = Math.floor((diff / 1000) % 60).toString().padStart(2, '0');
+        }, 1000);
+
+        // INTERAÇÕES
+        function chuvaCidadao() {
+            for(let i=0; i<30; i++) setTimeout(createHeart, i*50);
         }
-        setInterval(atualizar, 1000);
 
         function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.innerHTML = '❤️';
-            heart.style.left = Math.random() * 100 + 'vw';
-            const dur = Math.random() * 3 + 4;
-            heart.style.animationDuration = dur + 's';
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), dur * 1000);
+            const h = document.createElement('div');
+            h.classList.add('heart'); h.innerHTML = '❤️';
+            h.style.left = Math.random() * 100 + 'vw';
+            const dur = Math.random() * 2 + 3;
+            h.style.animationDuration = dur + 's';
+            document.body.appendChild(h);
+            setTimeout(() => h.remove(), dur * 1000);
+        }
+
+        function atualizarMural() {
+            const txt = document.getElementById('input-mural').value;
+            if(!txt) return;
+            localStorage.setItem('mural', txt);
+            document.getElementById('mural-texto').innerText = `"${txt}"`;
+            document.getElementById('input-mural').value = "";
+        }
+
+        function setMood(mood) {
+            localStorage.setItem('meu_mood', mood);
+            document.getElementById('current-mood').innerText = "Status atual: " + mood;
+        }
+
+        let sdds = localStorage.getItem('saudades') || 0;
+        function matarSaudade() {
+            sdds++; localStorage.setItem('saudades', sdds);
+            document.getElementById('sdd-count').innerText = sdds;
+            createHeart();
+        }
+
+        function selarCapsula() {
+            const txt = document.getElementById('texto-capsula').value;
+            if(txt.length < 5) return;
+            localStorage.setItem('capsula_texto', txt);
+            localStorage.setItem('capsula_data', new Date().getTime());
+            verificarCapsula();
+        }
+
+        function verificarCapsula() {
+            const data = localStorage.getItem('capsula_data');
+            if(data) {
+                document.getElementById('capsula-form').style.display = 'none';
+                document.getElementById('capsula-status').style.display = 'block';
+                const lib = new Date(parseInt(data)); lib.setFullYear(lib.getFullYear() + 1);
+                setInterval(() => {
+                    const dist = lib - new Date();
+                    if(dist < 0) {
+                        document.getElementById('capsula-status').innerHTML = `🔓 Aberta: "${localStorage.getItem('capsula_texto')}"`;
+                    } else {
+                        document.getElementById('countdown-capsula').innerText = `Libera em: ${Math.floor(dist/86400000)} dias`;
+                    }
+                }, 1000);
+            }
+        }
+
+        function carregarDados() {
+            document.getElementById('sdd-count').innerText = sdds;
+            if(localStorage.getItem('mural')) document.getElementById('mural-texto').innerText = `"${localStorage.getItem('mural')}"`;
+            if(localStorage.getItem('meu_mood')) document.getElementById('current-mood').innerText = "Status atual: " + localStorage.getItem('meu_mood');
+            verificarCapsula();
         }
     </script>
 </body>
