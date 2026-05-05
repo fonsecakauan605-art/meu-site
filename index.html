@@ -4,15 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KAUAN & MARIA ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Syne:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Syne:wght@700&family=Azeret+Mono:wght@400&display=swap" rel="stylesheet">
     <style>
         :root {
             --neon-red: #ff4d6d;
             --neon-green: #39ff14;
             --neon-blue: #00f2ff;
-            --bg-dark: #0f0104;
+            --bg-dark: #0a0104;
             --font-destaque: 'Syne', sans-serif;
             --font-corpo: 'Inter', sans-serif;
+            --font-digital: 'Azeret Mono', monospace;
         }
 
         body {
@@ -56,14 +57,14 @@
             transform: translateX(-50%);
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(15px);
-            padding: 10px 20px;
+            padding: 10px 15px;
             border-radius: 30px;
             display: none;
             z-index: 1000;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            width: 85%;
-            max-width: 400px;
-            justify-content: space-around;
+            width: 90%;
+            max-width: 450px;
+            justify-content: space-between;
         }
 
         nav button {
@@ -71,9 +72,10 @@
             border: none;
             color: #aaa;
             font-family: var(--font-destaque);
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             cursor: pointer;
             transition: 0.3s;
+            padding: 10px 5px;
         }
 
         nav button.active { color: var(--neon-red); transform: scale(1.1); }
@@ -100,65 +102,81 @@
             margin-bottom: 20px;
         }
 
-        /* ELEMENTOS DA INTERAÇÃO */
-        .btn-interativo {
-            background: var(--neon-red);
-            border: none;
-            padding: 12px;
-            color: white;
-            border-radius: 12px;
-            cursor: pointer;
-            font-family: var(--font-destaque);
+        /* ESTILO DA ABA DE DECLARAÇÃO (FOTO) */
+        .heart-ascii-container {
+            background: #000;
+            padding: 40px 10px;
+            border-radius: 15px;
+            border: 1px solid #1a0005;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ascii-text {
+            font-family: var(--font-digital);
+            font-size: 6px;
+            line-height: 6px;
+            color: var(--neon-red);
+            text-shadow: 0 0 5px var(--neon-red);
+            white-space: pre;
+            display: inline-block;
+            animation: pulse-glow 2s infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            from { text-shadow: 0 0 2px var(--neon-red); opacity: 0.8; }
+            to { text-shadow: 0 0 12px var(--neon-red); opacity: 1; }
+        }
+
+        .floating-message {
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             width: 100%;
-            margin-top: 10px;
-            text-transform: uppercase;
+            pointer-events: none;
+        }
+
+        .floating-message h2 {
+            font-size: 2.2rem;
+            margin: 0;
+            font-family: var(--font-digital);
+            color: #fff;
+            text-shadow: 0 0 20px rgba(255,255,255,0.8);
+        }
+
+        .floating-message p {
+            font-family: var(--font-digital);
             font-size: 0.8rem;
+            margin-top: 5px;
+            letter-spacing: 1px;
+            color: #ffb3c1;
+        }
+
+        /* OUTROS ESTILOS */
+        .btn-interativo {
+            background: var(--neon-red); border: none; padding: 12px; color: white;
+            border-radius: 12px; cursor: pointer; font-family: var(--font-destaque);
+            width: 100%; margin-top: 10px; text-transform: uppercase; font-size: 0.8rem;
         }
 
         .input-style {
-            width: 100%;
-            padding: 12px;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 77, 109, 0.5);
-            background: rgba(0,0,0,0.3);
-            color: white;
-            box-sizing: border-box;
-            margin-top: 10px;
+            width: 100%; padding: 12px; border-radius: 10px; border: 1px solid rgba(255, 77, 109, 0.5);
+            background: rgba(0,0,0,0.3); color: white; box-sizing: border-box; margin-top: 10px;
         }
 
-        .mood-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .mood-btn {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 10px;
-            padding: 10px;
-            cursor: pointer;
-            font-size: 1.2rem;
-        }
-
-        /* FOTOS E TIMER */
         .photo-container {
-            width: 180px; height: 180px;
-            margin: 0 auto 15px;
-            border-radius: 50%;
-            border: 4px solid var(--neon-red);
-            overflow: hidden;
-            box-shadow: 0 0 30px rgba(255, 77, 109, 0.3);
+            width: 160px; height: 160px; margin: 0 auto 15px; border-radius: 50%;
+            border: 4px solid var(--neon-red); overflow: hidden; box-shadow: 0 0 30px rgba(255, 77, 109, 0.3);
         }
         .photo-container img { width: 100%; height: 100%; object-fit: cover; }
 
         .timer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-        .timer-box { background: rgba(255, 255, 255, 0.05); padding: 15px 5px; border-radius: 12px; }
-        .timer-val { font-family: var(--font-destaque); color: var(--neon-green); font-size: 1.1rem; display: block; }
+        .timer-box { background: rgba(255, 255, 255, 0.05); padding: 10px 5px; border-radius: 12px; }
+        .timer-val { font-family: var(--font-destaque); color: var(--neon-green); font-size: 1rem; display: block; }
 
         .galeria-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .galeria-item { width: 100%; height: 150px; border-radius: 15px; background: #222; overflow: hidden; border: 1px solid var(--neon-red); }
+        .galeria-item { width: 100%; height: 140px; border-radius: 15px; background: #222; overflow: hidden; border: 1px solid var(--neon-red); }
         .galeria-item img { width: 100%; height: 100%; object-fit: cover; }
 
         .heart { position: fixed; top: -20px; color: var(--neon-red); z-index: 5; animation: fall linear forwards; pointer-events: none; }
@@ -173,6 +191,7 @@
 
     <nav id="main-nav">
         <button onclick="showTab('inicio')" id="btn-inicio" class="active">INÍCIO</button>
+        <button onclick="showTab('declaracao')" id="btn-declaracao">PARA VOCÊ</button>
         <button onclick="showTab('fotos')" id="btn-fotos">FOTOS</button>
         <button onclick="showTab('interacoes')" id="btn-interacoes">INTERAÇÕES</button>
     </nav>
@@ -187,7 +206,7 @@
         </section>
 
         <section class="card">
-            <p style="font-family: var(--font-destaque); font-size: 0.7rem; letter-spacing: 2px;">TEMPO JUNTOS</p>
+            <p style="font-family: var(--font-destaque); font-size: 0.7rem; letter-spacing: 2px;">CONTANDO CADA SEGUNDO</p>
             <div class="timer-grid">
                 <div class="timer-box"><span class="timer-val" id="d">00</span><span style="font-size:0.5rem">DIAS</span></div>
                 <div class="timer-box"><span class="timer-val" id="h">00</span><span style="font-size:0.5rem">HRS</span></div>
@@ -195,6 +214,18 @@
                 <div class="timer-box"><span class="timer-val" id="s">00</span><span style="font-size:0.5rem">SEG</span></div>
             </div>
         </section>
+    </main>
+
+    <main id="declaracao" class="tab-content">
+        <div class="heart-ascii-container">
+            <div class="ascii-text" id="ascii-heart">
+                </div>
+            <div class="floating-message">
+                <h2>I love you 🤍🤍</h2>
+                <p>my heart keeps choosing you</p>
+            </div>
+        </div>
+        <p style="margin-top: 20px; font-size: 0.8rem; opacity: 0.6; font-family: var(--font-digital);">K & M - Forever</p>
     </main>
 
     <main id="fotos" class="tab-content">
@@ -213,7 +244,7 @@
 
         <div class="card">
             <h3 style="font-size: 0.7rem; text-transform: uppercase;">Aviso Imediato</h3>
-            <button class="btn-interativo" onclick="chuvaCores()" style="background: var(--neon-blue); color: #000;">Tô pensando em você agora! ⚡</button>
+            <button class="btn-interativo" onclick="chuvaCores()" style="background: var(--neon-blue); color: #000;">Tô pensando em você! ⚡</button>
         </div>
 
         <div class="card">
@@ -224,28 +255,15 @@
         </div>
 
         <div class="card">
-            <h3 style="font-size: 0.7rem; text-transform: uppercase;">Como eu tô hoje?</h3>
-            <div class="mood-grid">
-                <button class="mood-btn" onclick="setMood('Feliz! 😍')">😍</button>
-                <button class="mood-btn" onclick="setMood('Com sono... 😴')">😴</button>
-                <button class="mood-btn" onclick="setMood('Carente 🥺')">🥺</button>
-                <button class="mood-btn" onclick="setMood('Estressado(a) 😤')">😤</button>
-                <button class="mood-btn" onclick="setMood('Te amando muito! ❤️')">❤️</button>
-                <button class="mood-btn" onclick="setMood('Com fome 🍕')">🍕</button>
-            </div>
-            <p id="current-mood" style="margin-top: 10px; font-size: 0.8rem; color: var(--neon-green);"></p>
-        </div>
-
-        <div class="card">
             <h3 style="font-size: 0.7rem; text-transform: uppercase;">Saudômetro</h3>
             <span id="sdd-count" style="font-size: 2.5rem; color: var(--neon-red); font-family: var(--font-destaque); display: block;">0</span>
-            <button class="btn-interativo" onclick="matarSaudade()">Aumentar Saudade +1</button>
+            <button class="btn-interativo" onclick="matarSaudade()">Estou com saudade ❤️</button>
         </div>
 
         <div class="card" id="capsula-container">
             <h3 style="font-size: 0.7rem; text-transform: uppercase;">Cápsula do Tempo ⏳</h3>
             <div id="capsula-form">
-                <textarea id="texto-capsula" class="input-style" rows="3" placeholder="Mensagem para lerem daqui a 1 ano..."></textarea>
+                <textarea id="texto-capsula" class="input-style" rows="3" placeholder="Mensagem para o futuro..."></textarea>
                 <button class="btn-interativo" onclick="selarCapsula()" style="background: #fff; color: #000;">Selar Cápsula</button>
             </div>
             <div id="capsula-status" style="display:none;">
@@ -258,6 +276,7 @@
         function entrar() {
             document.getElementById('loader').style.display = 'none';
             document.getElementById('main-nav').style.display = 'flex';
+            gerarCoracaoASCII();
             carregarTudo();
         }
 
@@ -268,7 +287,7 @@
             document.getElementById('btn-' + tabId).classList.add('active');
         }
 
-        // TIMER INICIAL
+        // TIMER
         const dataInicio = new Date(2025, 10, 15, 20, 30); 
         setInterval(() => {
             const diff = new Date() - dataInicio;
@@ -280,10 +299,34 @@
             }
         }, 1000);
 
-        // FUNÇÕES DE INTERAÇÃO
-        function chuvaCores() {
-            for(let i=0; i<30; i++) setTimeout(createHeart, i*60);
+        // CORAÇÃO ASCII (REPLICANDO A FOTO)
+        function gerarCoracaoASCII() {
+            const container = document.getElementById('ascii-heart');
+            const heartTemplate = [
+                "      I love you I love you           I love you I love you      ",
+                "   I love you I love you I love   I love you I love you I love   ",
+                " I love you I love you I love you I love you I love you I love you ",
+                "I love you I love you I love you I love you I love you I love you I",
+                "I love you I love you I love you I love you I love you I love you I",
+                " I love you I love you I love you I love you I love you I love you ",
+                "  I love you I love you I love you I love you I love you I love   ",
+                "    I love you I love you I love you I love you I love you I     ",
+                "      I love you I love you I love you I love you I love         ",
+                "        I love you I love you I love you I love you              ",
+                "          I love you I love you I love you I love                ",
+                "            I love you I love you I love you                    ",
+                "              I love you I love you I love                      ",
+                "                I love you I love you                           ",
+                "                  I love you I love                             ",
+                "                    I love you                                  ",
+                "                      I love                                    ",
+                "                        I                                       "
+            ];
+            container.innerHTML = heartTemplate.join('\n');
         }
+
+        // INTERAÇÕES
+        function chuvaCores() { for(let i=0; i<30; i++) setTimeout(createHeart, i*60); }
 
         function createHeart() {
             const h = document.createElement('div');
@@ -301,11 +344,6 @@
             localStorage.setItem('mural_msg', txt);
             document.getElementById('mural-texto').innerText = `"${txt}"`;
             document.getElementById('input-mural').value = "";
-        }
-
-        function setMood(mood) {
-            localStorage.setItem('user_mood', mood);
-            document.getElementById('current-mood').innerText = "Status: " + mood;
         }
 
         let sdds = localStorage.getItem('sdd_val') || 0;
@@ -329,14 +367,12 @@
                 document.getElementById('capsula-form').style.display = 'none';
                 document.getElementById('capsula-status').style.display = 'block';
                 const lib = new Date(parseInt(data)); lib.setFullYear(lib.getFullYear() + 1);
-                
                 setInterval(() => {
                     const dist = lib - new Date();
                     if(dist < 0) {
-                        document.getElementById('capsula-status').innerHTML = `🔓 Liberado: <br> "${localStorage.getItem('cap_txt')}"`;
+                        document.getElementById('capsula-status').innerHTML = `🔓 Liberado: "${localStorage.getItem('cap_txt')}"`;
                     } else {
-                        const dias = Math.floor(dist/86400000);
-                        document.getElementById('countdown-capsula').innerText = `Abre em: ${dias} dias`;
+                        document.getElementById('countdown-capsula').innerText = `Abre em: ${Math.floor(dist/86400000)} dias`;
                     }
                 }, 1000);
             }
@@ -345,7 +381,6 @@
         function carregarTudo() {
             document.getElementById('sdd-count').innerText = sdds;
             if(localStorage.getItem('mural_msg')) document.getElementById('mural-texto').innerText = `"${localStorage.getItem('mural_msg')}"`;
-            if(localStorage.getItem('user_mood')) document.getElementById('current-mood').innerText = "Status: " + localStorage.getItem('user_mood');
             verificarCapsula();
         }
     </script>
