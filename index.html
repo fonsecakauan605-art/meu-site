@@ -4,103 +4,206 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KAUAN & MARIA ❤️</title>
-    <link href="https://googleapis.com" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Syne:wght@700&family=Azeret+Mono:wght@400&display=swap" rel="stylesheet">
     <style>
         :root {
             --neon-red: #ff4d6d;
             --neon-green: #39ff14;
+            --neon-blue: #00f2ff;
             --bg-dark: #0a0104;
             --font-destaque: 'Syne', sans-serif;
             --font-corpo: 'Inter', sans-serif;
             --font-digital: 'Azeret Mono', monospace;
         }
 
-        body { background-color: var(--bg-dark); color: #fff; font-family: var(--font-corpo); margin: 0; padding-bottom: 100px; min-height: 100vh; overflow-x: hidden; }
+        body {
+            background-color: var(--bg-dark);
+            color: #fff;
+            font-family: var(--font-corpo);
+            margin: 0;
+            padding-bottom: 100px; 
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
 
-        /* TELA DE SENHA */
+        /* --- TELA DE SENHA --- */
         #tela-senha {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; z-index: 20000; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; gap: 15px;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #000;
+            z-index: 20000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
         }
 
         .input-senha {
-            padding: 15px; border-radius: 12px; border: 2px solid var(--neon-red);
-            background: #111; color: white; text-align: center; font-family: var(--font-digital); outline: none; width: 200px;
+            padding: 15px;
+            border-radius: 12px;
+            border: 2px solid var(--neon-red);
+            background: #111;
+            color: white;
+            text-align: center;
+            font-family: var(--font-digital);
+            outline: none;
+            width: 200px;
         }
 
-        .btn-acesso {
-            background: var(--neon-red); border: none; color: #fff; padding: 15px 30px;
-            font-family: var(--font-destaque); border-radius: 50px; cursor: pointer; text-transform: uppercase;
+        #loader {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #000;
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .btn-visitante {
-            background: transparent; border: 1px solid #444; color: #888; padding: 10px 20px;
-            font-family: var(--font-corpo); border-radius: 50px; cursor: pointer; margin-top: 10px; font-size: 0.7rem;
+        #start-btn {
+            background: var(--neon-red);
+            border: none;
+            color: #fff;
+            padding: 22px 50px;
+            font-family: var(--font-destaque);
+            border-radius: 50px;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(255, 77, 109, 0.4);
         }
 
-        /* NAVEGAÇÃO */
         nav {
-            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px);
-            padding: 10px 15px; border-radius: 30px; display: none; z-index: 1000;
-            border: 1px solid rgba(255, 255, 255, 0.1); width: 90%; max-width: 450px; justify-content: space-between;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 10px 15px;
+            border-radius: 30px;
+            display: none;
+            z-index: 1000;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 90%;
+            max-width: 450px;
+            justify-content: space-between;
         }
 
-        nav button { background: none; border: none; color: #aaa; font-family: var(--font-destaque); font-size: 0.65rem; cursor: pointer; }
+        nav button {
+            background: none;
+            border: none;
+            color: #aaa;
+            font-family: var(--font-destaque);
+            font-size: 0.65rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
         nav button.active { color: var(--neon-red); transform: scale(1.1); }
 
-        .tab-content { display: none; padding: 20px; animation: fadeIn 0.5s ease; max-width: 500px; margin: 0 auto; text-align: center; }
+        .tab-content {
+            display: none;
+            padding: 20px;
+            animation: fadeIn 0.5s ease;
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
         .tab-content.active { display: block; }
+
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
 
-        .card { border: 2px solid rgba(255, 77, 109, 0.2); background: rgba(255, 255, 255, 0.03); border-radius: 20px; padding: 20px; margin-bottom: 20px; }
-
-        /* ESTILO BOTÕES BLOQUEADOS */
-        .btn-interativo:disabled {
-            background: #333 !important;
-            color: #666 !important;
-            cursor: not-allowed !important;
-            box-shadow: none !important;
-            opacity: 0.5;
+        .card {
+            border: 2px solid rgba(255, 77, 109, 0.2);
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
         }
 
-        .btn-interativo {
-            background: var(--neon-red); border: none; padding: 12px; color: white;
-            border-radius: 12px; cursor: pointer; font-family: var(--font-destaque);
-            width: 100%; margin-top: 10px; text-transform: uppercase; font-size: 0.8rem;
-            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.3);
+        .heart-canvas-container {
+            background: #000;
+            width: 100%;
+            height: 450px;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #1a0005;
         }
 
-        /* TIMER E FOTOS */
+        #heartCanvas { width: 100%; height: 100%; }
+
+        .overlay-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .overlay-text h2 {
+            font-family: var(--font-digital);
+            font-size: 1.8rem;
+            color: #fff;
+            text-shadow: 0 0 20px var(--neon-red);
+            margin: 0;
+        }
+
+        .overlay-text p {
+            font-family: var(--font-digital);
+            font-size: 0.8rem;
+            color: #ffb3c1;
+            letter-spacing: 2px;
+        }
+
+        .photo-container {
+            width: 160px; height: 160px; margin: 0 auto 15px; border-radius: 50%;
+            border: 4px solid var(--neon-red); overflow: hidden; box-shadow: 0 0 30px rgba(255, 77, 109, 0.3);
+        }
+        .photo-container img { width: 100%; height: 100%; object-fit: cover; }
+
         .timer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
         .timer-box { background: rgba(255, 255, 255, 0.05); padding: 10px 5px; border-radius: 12px; }
         .timer-val { font-family: var(--font-destaque); color: var(--neon-green); font-size: 1rem; display: block; }
+
         .galeria-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .galeria-item { width: 100%; height: 140px; border-radius: 15px; overflow: hidden; border: 1px solid var(--neon-red); }
+        .galeria-item { width: 100%; height: 140px; border-radius: 15px; background: #222; overflow: hidden; border: 1px solid var(--neon-red); }
         .galeria-item img { width: 100%; height: 100%; object-fit: cover; }
+
     </style>
 </head>
 <body>
 
-    <!-- TELA DE ACESSO -->
     <div id="tela-senha">
-        <h2 style="color:var(--neon-red); font-family: var(--font-destaque);">SISTEMA</h2>
-        <input type="password" id="inputPass" class="input-senha" placeholder="SENHA DO CASAL">
-        <button class="btn-acesso" onclick="validar(true)">Acessar como Casal</button>
-        <button class="btn-visitante" onclick="validar(false)">Entrar como Visitante (Ver apenas)</button>
+        <h2 style="color:var(--neon-red); font-family: var(--font-destaque);">SISTEMA PRIVADO</h2>
+        <input type="password" id="inputPass" class="input-senha" placeholder="SENHA">
+        <button id="start-btn" style="padding: 15px 30px;" onclick="validarSenha()">Entrar</button>
+    </div>
+
+    <div id="loader" style="display: none;">
+        <button id="start-btn" onclick="entrar()">Acessar Sistema</button>
     </div>
 
     <nav id="main-nav">
         <button onclick="showTab('inicio')" id="btn-inicio" class="active">INÍCIO</button>
+        <button onclick="showTab('declaracao')" id="btn-declaracao">PARA VOCÊ</button>
         <button onclick="showTab('fotos')" id="btn-fotos">FOTOS</button>
         <button onclick="showTab('interacoes')" id="btn-interacoes">INTERAÇÕES</button>
     </nav>
 
-    <!-- INICIO -->
     <main id="inicio" class="tab-content active">
         <section class="card">
-            <h1 style="font-family: var(--font-destaque);">KAUAN & MARIA</h1>
+            <div class="photo-container"><img src="amor.jpeg.jpeg" alt="FOTO PRINCIPAL"></div>
+            <h1 style="font-family: var(--font-destaque);">MARIA</h1>
+            <p style="color: var(--neon-red); font-weight: bold;">NAMORADA PERFEITA</p>
+        </section>
+
+        <section class="card">
+            <p style="font-family: var(--font-destaque); font-size: 0.7rem;">CONTANDO CADA SEGUNDO</p>
             <div class="timer-grid">
                 <div class="timer-box"><span class="timer-val" id="d">00</span><small>DIAS</small></div>
                 <div class="timer-box"><span class="timer-val" id="h">00</span><small>HRS</small></div>
@@ -110,73 +213,73 @@
         </section>
     </main>
 
-    <!-- FOTOS -->
-    <main id="fotos" class="tab-content">
-        <div class="galeria-grid">
-            <div class="galeria-item"><img src="amor.jpeg.jpeg"></div>
-            <div class="galeria-item"><img src="amor1.jpeg.jpeg"></div>
+    <main id="declaracao" class="tab-content">
+        <div class="heart-canvas-container">
+            <canvas id="heartCanvas"></canvas>
+            <div class="overlay-text">
+                <h2>I love you 🤍</h2>
+                <p>my heart keeps choosing you</p>
+            </div>
         </div>
     </main>
 
-    <!-- INTERAÇÕES (BLOQUEADA PARA VISITANTES) -->
-    <main id="interacoes" class="tab-content">
-        <section class="card">
-            <h2 style="font-family: var(--font-destaque); font-size: 1rem;">MURAL DE AMOR</h2>
-            <p id="msg-trava" style="color: #666; font-size: 0.7rem; margin-bottom: 10px;">⚠️ Somente o casal pode interagir aqui.</p>
-            
-            <input type="text" class="input-senha" style="width: 90%; font-size: 0.8rem;" placeholder="Escreva algo..." id="input-msg">
-            <button class="btn-interativo" id="btn-enviar" onclick="alert('Mensagem enviada!')">Enviar Mensagem</button>
-            <button class="btn-interativo" id="btn-coracao" onclick="alert('Você enviou um ❤️!')">Enviar Coração</button>
-        </section>
+    <main id="fotos" class="tab-content">
+        <h2 style="font-family: var(--font-destaque);">NOSSA GALERIA</h2>
+        <div class="galeria-grid">
+            <div class="galeria-item"><img src="amor.jpeg.jpeg"></div>
+            <div class="galeria-item"><img src="amor1.jpeg.jpeg"></div>
+            <div class="galeria-item"><img src="Amor1.jpeg.jpeg"></div>
+            <div class="galeria-item"><img src="amor3.jpeg.jpeg"></div>
+            <div class="galeria-item"><img src="amor4.jpeg.jpeg"></div>
+        </div>
     </main>
 
     <script>
-        const senhaCorreta = "2008";
-        let ehAdmin = false;
-
-        function validar(comSenha) {
-            if (comSenha) {
-                const p = document.getElementById('inputPass').value;
-                if (p === senhaCorreta) {
-                    ehAdmin = true;
-                    liberar();
-                } else { alert("Senha incorreta!"); return; }
-            } else {
-                ehAdmin = false; // Modo visitante
-                liberar();
-            }
+        // LÓGICA DA SENHA E MEMÓRIA
+        function validarSenha() {
+            if (document.getElementById('inputPass').value === "2008") {
+                localStorage.setItem("acesso_perm", "true");
+                document.getElementById('tela-senha').style.display = 'none';
+                document.getElementById('loader').style.display = 'flex';
+            } else { alert("Senha Incorreta!"); }
         }
 
-        function liberar() {
-            document.getElementById('tela-senha').style.display = 'none';
-            document.getElementById('main-nav').style.display = 'flex';
-            
-            // Se for visitante, desativa os botões de interações
-            if (!ehAdmin) {
-                document.getElementById('btn-enviar').disabled = true;
-                document.getElementById('btn-coracao').disabled = true;
-                document.getElementById('input-msg').disabled = true;
-                document.getElementById('msg-trava').innerText = "❌ MODO VISITANTE: Interações desativadas.";
-                document.getElementById('msg-trava').style.color = "var(--neon-red)";
+        window.onload = function() {
+            if (localStorage.getItem("acesso_perm") === "true") {
+                document.getElementById('tela-senha').style.display = 'none';
+                document.getElementById('loader').style.display = 'flex';
             }
-            
+            atualizarContador();
             setInterval(atualizarContador, 1000);
+        };
+
+        function entrar() {
+            document.getElementById('loader').style.display = 'none';
+            document.getElementById('main-nav').style.display = 'flex';
         }
 
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            document.getElementById('btn-' + tabId).classList.add('active');
+        }
+
+        // LÓGICA DO CONTADOR (170 dias atrás)
         function atualizarContador() {
             const dataInicio = new Date("2025-11-16T00:00:00"); 
-            const diff = new Date() - dataInicio;
-            document.getElementById('d').innerText = Math.floor(diff / 86400000);
-            document.getElementById('h').innerText = Math.floor((diff / 3600000) % 24).toString().padStart(2, '0');
-            document.getElementById('m').innerText = Math.floor((diff / 60000) % 60).toString().padStart(2, '0');
-            document.getElementById('s').innerText = Math.floor((diff / 1000) % 60).toString().padStart(2, '0');
-        }
+            const agora = new Date();
+            const diff = agora - dataInicio;
 
-        function showTab(id) {
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            document.getElementById('btn-' + id).classList.add('active');
+            const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutos = Math.floor((diff / 1000 / 60) % 60);
+            const segundos = Math.floor((diff / 1000) % 60);
+
+            document.getElementById('d').innerText = dias.toString().padStart(2, '0');
+            document.getElementById('h').innerText = horas.toString().padStart(2, '0');
+            document.getElementById('m').innerText = minutos.toString().padStart(2, '0');
+            document.getElementById('s').innerText = segundos.toString().padStart(2, '0');
         }
     </script>
 </body>
